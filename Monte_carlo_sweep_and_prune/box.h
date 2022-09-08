@@ -36,6 +36,7 @@ private:
    double extension[3];  // size of the box
    std::multimap<double, int, std::greater<int> > components;  //  IDs (value) ordered by size (key)
    std::vector<std::vector<Sphere> > particles;  // maps each component ID to the spheres associated with that component
+   std::vector<std::vector<Sphere> > x_particles; // maps each component, and sorted by x coord
    std::vector<small_Box> boxes; 
    size_t N;  // total number of particles
 };

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "collisions_low-level.h"
+#include "collisions_with_struct.h"
 
 
 int main()

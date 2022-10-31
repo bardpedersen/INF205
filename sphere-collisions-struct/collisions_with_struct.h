@@ -1,5 +1,5 @@
-#ifndef COLLISIONS_LOW_LEVEL_H
-#define COLLISIONS_LOW_LEVEL_H
+#ifndef COLLISIONS_WITH_STRUCT_H
+#define COLLISIONS_WITH_STRUCT_H
 
 struct sphere{
     float size;

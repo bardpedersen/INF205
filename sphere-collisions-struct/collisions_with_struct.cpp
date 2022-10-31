@@ -1,4 +1,4 @@
-#include "collisions_low-level.h"
+#include "collisions_with_struct.h"
 
 
 // is there a collision between sphere i and sphere j?

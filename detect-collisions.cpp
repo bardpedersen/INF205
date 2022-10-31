@@ -1,17 +1,6 @@
 #include <iostream>
 #include "collisions_low-level.h"
 
-double time_measurement(int N, sphere planets[])
-{
-   int num_tests = 10000;
-   auto t0 = std::chrono::high_resolution_clock::now();
-   for(int i = 0; i < num_tests; i++)
-   {
-      count_collisions(N, planets);;
-   }
-   auto t1 = std::chrono::high_resolution_clock::now();
-   return std::chrono::duration_cast<std::chrono::nanoseconds>(t1-t0).count() / (double)num_tests;
-}
 
 int main()
 {
@@ -32,7 +21,7 @@ int main()
     * 
     * note: collision here means "overlap" between spheres
     */
-   int time = time_measurement(N, planets);
-   std::cout << time << "nanoseconds to run";
+   int number_of_collisions = count_collisions(N, planets);;
+   std::cout << number_of_collisions << "collisions detected";
    delete[] planets;
 }

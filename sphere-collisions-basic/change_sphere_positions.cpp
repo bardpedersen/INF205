@@ -1,7 +1,7 @@
 #include <iostream>
 #include "collisions_low-level.h"
 
-int main()
+int funcion()
 {
    int N = 0; // N will be the number of spheres
    std::cin >> N;  // input number of spheres
@@ -37,11 +37,12 @@ int main()
    for(int i=0;i<5;i++)
    {
         
-        int num_collisions = count_collisions(N, size, coordx, coordy, coordz);
-        std::cout << num_collisions << " collisions were found.\n";
-        coordx[0]=coordx[0]+1;
-        coordy[0]=coordy[0]+1;
-        coordz[0]=coordz[0]+1;
+      float num_collisions = count_collisions(N, size, coordx, coordy, coordz);
+      std::cout << num_collisions << " collisions were found.\n";
+      
+      coordx[0]=coordx[0]+1.0;
+      coordy[0]=coordy[0]+1.0;   
+      coordz[0]=coordz[0]+1.0;
    }
 
    

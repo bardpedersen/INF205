@@ -34,9 +34,16 @@ int main()
     * 
     * note: collision here means "overlap" between spheres
     */
-   int num_collisions = count_collisions(N, size, coordx, coordy, coordz);
-   std::cout << num_collisions << " collisions were found.\n";
-   
+   for(int i=0;i<5;i++)
+   {
+        
+      float num_collisions = count_collisions(N, size, coordx, coordy, coordz);
+      std::cout << num_collisions << " collisions were found.\n";
+      
+      coordx[0]=coordx[0]+1.0;
+      coordy[0]=coordy[0]+1.0;   
+      coordz[0]=coordz[0]+1.0;
+   }
    /*
     * deallocate all the arrays created with "new"
     */

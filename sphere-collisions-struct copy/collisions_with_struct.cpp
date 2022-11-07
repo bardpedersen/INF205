@@ -1,5 +1,5 @@
 #include "collisions_with_struct.h"
-
+#include<cstdlib>
 
 // is there a collision between sphere i and sphere j?
 //
@@ -52,9 +52,12 @@ int count_collisions(int N, sphere planets[])
    return num_collisions;
 }
 
-void relocate(sphere planet, struct box)
+void relocate(sphere planet, box boxes)
 {
-   planet.coordx = rnd() % box.coordx * box.size + 1;
-   planet.coordy = rand() % box.coordy * box.size + 1;
-   planet.coordz = rand() % box.coordz * box.size + 1;
+   int x = boxes.coordx;
+   int y = boxes.coordy;
+   int z = boxes.coordz;
+   planet.coordx = rand() % x * boxes.size + 1;
+   planet.coordy = rand() % y * boxes.size + 1;
+   planet.coordz = rand() % z * boxes.size + 1;
 }

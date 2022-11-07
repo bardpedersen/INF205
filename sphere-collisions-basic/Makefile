@@ -1,5 +1,5 @@
 run: detect-collisions example-data.dat
-	cat example-data.dat | ./detect-collisions
+	type example-data.dat | detect-collisions
 
 detect-collisions: detect-collisions.o collisions_low-level.o
 	g++ -o detect-collisions *.o

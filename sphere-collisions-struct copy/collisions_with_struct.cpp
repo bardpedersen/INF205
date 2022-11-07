@@ -51,3 +51,10 @@ int count_collisions(int N, sphere planets[])
    
    return num_collisions;
 }
+
+void relocate(sphere planet, struct box)
+{
+   planet.coordx = rnd() % box.coordx * box.size + 1;
+   planet.coordy = rand() % box.coordy * box.size + 1;
+   planet.coordz = rand() % box.coordz * box.size + 1;
+}

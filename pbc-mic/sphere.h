@@ -26,7 +26,10 @@ public:
     */
    bool check_collision(const Sphere* other, const double box_size[3]) const;
 
+   void move_sphere(const Sphere* other, const double box_size[3]);
+
 private:
+
    size_t particle_id = 0;
    double size = 0.0;
    double coords[3] = {0.0, 0.0, 0.0};

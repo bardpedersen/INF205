@@ -13,6 +13,8 @@ public:
    void in(std::istream* source);  // read from *source
    
    long count_collisions();  // count number of collisions
+
+   void move_sphere();
    
 private:
    double extension[3];  // size of the box

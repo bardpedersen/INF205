@@ -1,4 +1,5 @@
 #include "box.h"
+#include <cmath>
 
 void Box::in(std::istream* source)
 {
@@ -86,4 +87,33 @@ long Box::count_collisions()
       }
    
    return num_collisions;
+}
+
+void Box::move_sphere(){
+
+   int temp_coord[3];
+
+   for(int d = 0; d < 3; d++)
+   {
+   temp_coord[d] = this->coords[d];
+   }
+   int collision_before = count_collisions();
+
+   //try to move random sphere 
+   int random_sphere_from_list = rand() % Sphere.size(); // pick a random index
+   int random_sphere = Sphere[random_sphere_from_list];
+
+   int collisions_after = count_collisions();
+
+   double probability_move  = exp(collision_before - collisions_after); // Number of collisions 
+
+   if(probability_move > (rand() % 100 + 1)/100) {
+      //moving sphere
+   }
+   else{
+      for(int d = 0; d < 3; d++)
+      {
+      this->coords[d] = temp_coord[d];
+      }
+   }
 }

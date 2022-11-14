@@ -1,7 +1,8 @@
 #include <cassert>
 #include <iostream>
-#include <stdlib.h> 
-#include <bits/stdc++.h>
+#include <stdlib.h>
+#include <cmath>
+
 #include "sphere.h"
 
 
@@ -64,21 +65,24 @@ bool Sphere::check_collision(const Sphere* other, const double box_size[3]) cons
 
 void Sphere::move_sphere(const Sphere* other, const double box_size[3]){
 
+   int temp_coord[3];
+
    for(int d = 0; d < 3; d++)
    {
-   int temp_coord[d] = this->coords[d]
+   temp_coord[d] = this->coords[d];
    }
-   int collision_before = check_collision(const Sphere* other, const double box_size[3])
+   int collision_before = check_collision(const Sphere* other, const double box_size[3]);
 
    //try to move random sphere 
-   int random_sphere_from_list = rand() % list.size(); // pick a random index
-   int random_sphere = list[random_sphere_from_list]
+   int random_sphere_from_list = rand() % Sphere.size(); // pick a random index
+   int random_sphere = Sphere[random_sphere_from_list];
 
-   int collisions_after = check_collision(const Sphere* other, const double box_size[3])
+   int collisions_after = check_collision(const Sphere* other, const double box_size[3]);
+   potet 
 
    double probability_move  = exp(collision_before - collisions_after); // Number of collisions 
 
-   if probability_move > (rand() % 100 + 1)/100 {
+   if(probability_move > (rand() % 100 + 1)/100) {
       //move sphere
    }
 }

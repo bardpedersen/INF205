@@ -1,5 +1,6 @@
 #include "box.h"
 #include <cmath>
+#include <iostream>
 
 void Box::in(std::istream* source)
 {
@@ -57,8 +58,8 @@ long Box::count_collisions()
    for(auto A = this->components.begin(); A != this->components.end(); A++)
       for(auto B = A; B != this->components.end(); B++)
       {
-          std::cout << A->second << "(" << A->first << ") x "
-                   << B->second << "(" << B->first << ")\n";  // debug output
+         // std::cout << A->second << "(" << A->first << ") x "
+         //           << B->second << "(" << B->first << ")\n";  // debug output
                    
          if(A->second == B->second) // same component
          {
@@ -66,8 +67,8 @@ long Box::count_collisions()
             for(auto i = this->particles[A->second].begin(); std::next(i) != this->particles[A->second].end(); i++)
                for(auto j = std::next(i); j != this->particles[B->second].end(); j++)
                {
-                  // std::cout << "\t" << i->get_particle_id()
-                  //           << "\t" << j->get_particle_id() << "\n";  // debug output
+                  //std::cout << "\t" << i
+                  //          << "\t" << j << "\n";  // debug output
                   
                   if(i->check_collision(&(*j), this->extension)) num_collisions++;
                }
@@ -78,18 +79,24 @@ long Box::count_collisions()
             for(auto i = this->particles[A->second].begin(); i != this->particles[A->second].end(); i++)
                for(auto j = this->particles[B->second].begin(); j != this->particles[B->second].end(); j++)
                {
-                  // std::cout << "\t" << i->get_particle_id()
+                  //std::cout << "\t" << i->get_particle_id()
                   //           << "\t" << j->get_particle_id() << "\n";  // debug output
-                  
+
                   if(i->check_collision(&(*j), this->extension)) num_collisions++;
                }
          }
       }
-   
    return num_collisions;
 }
-/*
+
 void Box::move_sphere(){
+
+   int collision_before = count_collisions();
+
+   //Choose random sphere
+   int random_sphere_from_list = rand() % this->N +1; // pick a random index
+   int random_sphere = this->sphere[random_sphere_from_list];
+
 
    int temp_coord[3];
 
@@ -97,11 +104,6 @@ void Box::move_sphere(){
    {
    temp_coord[d] = this->coords[d];
    }
-   int collision_before = count_collisions();
-
-   //try to move random sphere 
-   int random_sphere_from_list = rand() % Sphere.size(); // pick a random index
-   int random_sphere = Sphere[random_sphere_from_list];
 
    int collisions_after = count_collisions();
 
@@ -117,4 +119,3 @@ void Box::move_sphere(){
       }
    }
 }
-*/

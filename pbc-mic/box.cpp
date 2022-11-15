@@ -57,8 +57,8 @@ long Box::count_collisions()
    for(auto A = this->components.begin(); A != this->components.end(); A++)
       for(auto B = A; B != this->components.end(); B++)
       {
-         // std::cout << A->second << "(" << A->first << ") x "
-         //           << B->second << "(" << B->first << ")\n";  // debug output
+          std::cout << A->second << "(" << A->first << ") x "
+                   << B->second << "(" << B->first << ")\n";  // debug output
                    
          if(A->second == B->second) // same component
          {
@@ -88,7 +88,7 @@ long Box::count_collisions()
    
    return num_collisions;
 }
-
+/*
 void Box::move_sphere(){
 
    int temp_coord[3];
@@ -117,3 +117,4 @@ void Box::move_sphere(){
       }
    }
 }
+*/

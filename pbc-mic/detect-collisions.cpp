@@ -22,18 +22,17 @@ int main(int argc, char** argv)
 
       //if collsion == 0, break and stop. 
 
-
+      /*
       //save the coords when the collision is lowest
-      double least_collison_coord[b.get_N()]; //list in list with each sphere with its coords
+      std::vector<double> least_collison_coord[b.get_N()]; //list in list with each sphere with its coords
       double coord[3];
 
-      /*
-      for(auto comp = b->components.begin(); comp != b->components.end(); comp++){
-         for(auto partic = b->particles[comp->second].begin(); partic != b->particles[comp->second].end(); partic++){
+      for(auto comp = b.get_components().begin(); comp != b.get_components().end(); comp++){
+         for(auto partic = b.get_particles().[comp->second].begin(); partic != b.get_particles().[comp->second].end(); partic++){
             for(int c = 0; c < 3; c++){
                coord[c] = partic->get_coordinate(c);
             }
-            least_collison_coord.push_back(coord);
+            least_collison_coord.push_back(coord[3]);
             std::cout << least_collison_coord;
          }
       }

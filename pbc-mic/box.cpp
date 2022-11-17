@@ -118,8 +118,7 @@ void Box::move_sphere(){
 
             for(int d = 0; d < 3; d++){
                double box_size = this->extension[d];
-               partic->set_coordinate(d, (rand() % box_size + 1)); //need to move within perodic boundry.
-               std::cout << (rand() % 4+1) <<" ";
+               partic->set_coordinate(d, (rand() % 4 + 1)); //need to move within perodic boundry.
                }
 
             int collisions_after = count_collisions();
@@ -128,9 +127,8 @@ void Box::move_sphere(){
             std::cout << "\n";
             double probability_move  = exp(collision_before - collisions_after); // Number of collisions
             double random = (rand() % 100 + 1);
-            std::cout << probability_move << "<" << random/100;
+            std::cout << probability_move << ">" << random/100;
             if(probability_move < random/100) {
-               std::cout << "not change";
                for(int d = 0; d < 3; d++){
                   partic->set_coordinate(d, temp_coord[d]);
 

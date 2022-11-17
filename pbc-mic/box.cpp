@@ -2,7 +2,6 @@
 #include "sphere.h"
 #include <cmath>
 #include <iostream>
-#include <time.h>
 
 void Box::in(std::istream* source)
 {
@@ -118,7 +117,9 @@ void Box::move_sphere(){
             double new_coords[3];
 
             for(int d = 0; d < 3; d++){
-               partic->set_coordinate(d, (rand() % 10+1));
+               double box_size = this->extension[d];
+               partic->set_coordinate(d, (rand() % box_size + 1)); //need to move within perodic boundry.
+               std::cout << (rand() % 4+1) <<" ";
                }
 
             int collisions_after = count_collisions();

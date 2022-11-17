@@ -16,6 +16,28 @@ int main(int argc, char** argv)
    
    for(int i = 0; i < 100; i++){
       
+      if(b.count_collisions()==0){
+         break;
+      }
+
+      //if collsion == 0, break and stop. 
+
+
+      //save the coords when the collision is lowest
+      double least_collison_coord[b.get_N()]; //list in list with each sphere with its coords
+      double coord[3];
+
+      /*
+      for(auto comp = b->components.begin(); comp != b->components.end(); comp++){
+         for(auto partic = b->particles[comp->second].begin(); partic != b->particles[comp->second].end(); partic++){
+            for(int c = 0; c < 3; c++){
+               coord[c] = partic->get_coordinate(c);
+            }
+            least_collison_coord.push_back(coord);
+            std::cout << least_collison_coord;
+         }
+      }
+      */
       b.move_sphere();
 
    }

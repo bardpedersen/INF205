@@ -16,9 +16,16 @@ public:
 
    void move_sphere(); // move spheres
    
+   int get_N() const{ return this->N;};
+
+   //get_components() const{ return this->components;};
+   //get_particles() const{ return this->particles;};
+
+   
+
 private:
    double extension[3];  // size of the box
-   std::multimap<double, int, std::greater<int>> components;  // component IDs (value) ordered by size (key)
+   std::multimap<double, int, std::greater<int>> components;  //  IDs (value) ordered by size (key)
    std::vector<std::vector<Sphere>> particles;  // maps each component ID to the spheres associated with that component
    size_t N = 0;  // total number of particles
 };

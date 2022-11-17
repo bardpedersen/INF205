@@ -14,7 +14,14 @@ int main(int argc, char** argv)
    file_in >> b;
    file_in.close();
    
-   b.move_sphere();
+   for(int i = 0; i < 100; i++){
+      
+      b.move_sphere();
+
+   }
+
+
+
    long num_collisions = b.count_collisions();
    std::cout << "\n===\nCollisions: " << num_collisions << "\n";
 }

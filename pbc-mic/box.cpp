@@ -93,7 +93,6 @@ long Box::count_collisions()
 
 
 void Box::move_sphere(){
-   srand (time(NULL));
 
    int collision_before = count_collisions();
 
@@ -109,6 +108,7 @@ void Box::move_sphere(){
       //list of particles in that componenet
          if(random_sphere_from_list == partic->get_particle_id()){
             double temp_coord[3];
+            //srand(time(NULL));
 
             for(int d = 0; d < 3; d++)
             {
@@ -118,7 +118,7 @@ void Box::move_sphere(){
             double new_coords[3];
 
             for(int d = 0; d < 3; d++){
-               partic->set_coordinate(d, (rand() % 10+1)/10);
+               partic->set_coordinate(d, (rand() % 10+1));
                }
 
             int collisions_after = count_collisions();
@@ -129,7 +129,7 @@ void Box::move_sphere(){
             double random = (rand() % 100 + 1);
             std::cout << probability_move << "<" << random/100;
             if(probability_move < random/100) {
-               std::cout << "change";
+               std::cout << "not change";
                for(int d = 0; d < 3; d++){
                   partic->set_coordinate(d, temp_coord[d]);
 

@@ -24,6 +24,7 @@ int main(int argc, char** argv)
    for(int i = 0; i < 100; i++){
 
       int number_of_collisions = b.count_collisions();
+      std::cout << number_of_collisions << " " << lowest_number_of_collisions<<"\n";
       if(number_of_collisions==0){ //if collsion == 0, break and stop. 
          break;
       }
@@ -38,7 +39,9 @@ int main(int argc, char** argv)
             
                for(int c = 0; c < 3; c++){
                   coord[particle_number][c] = partic->get_coordinate(c);
+                  std::cout << coord[particle_number][c];
                }
+               std::cout << "\n";
             }
          }
       }
@@ -46,20 +49,22 @@ int main(int argc, char** argv)
    }
 
 
-   
+   /* Need to pass by refrance so coords can be changed*/
    for(auto comp = compon.begin(); comp != compon.end(); comp++){
       for(auto partic = particle[comp->second].begin(); partic != particle[comp->second].end(); partic++){
          int particle_number = partic->get_particle_id();
                
          for(int c = 0; c < 3; c++){
             partic->set_coordinate(c, coord[particle_number][c]);
+            std::cout << coord[particle_number][c];
          }
+         std::cout << "\n";
       }
    }
 
 
 
 
-   long num_collisions = b.count_collisions();
+   int num_collisions = b.count_collisions();
    std::cout << "\n===\nCollisions: " << num_collisions << "\n";
 }

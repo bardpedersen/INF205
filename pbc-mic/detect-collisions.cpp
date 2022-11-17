@@ -41,7 +41,7 @@ int main(int argc, char** argv)
             }
          }
       }
-      
+
       if(number_of_collisions==0){ //if collsion == 0, break and stop. 
          break;
       }
@@ -55,7 +55,9 @@ int main(int argc, char** argv)
                
          for(int c = 0; c < 3; c++){
             partic->set_coordinate(c, coord[particle_number][c]);
+            std::cout <<coord[particle_number][c];
          }
+         std::cout << "\n";
       }
    }
 

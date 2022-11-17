@@ -2,6 +2,7 @@
 #include "sphere.h"
 #include <cmath>
 #include <iostream>
+#include <time.h>
 
 void Box::in(std::istream* source)
 {
@@ -92,6 +93,7 @@ long Box::count_collisions()
 
 
 void Box::move_sphere(){
+   srand (time(NULL));
 
    int collision_before = count_collisions();
 
@@ -106,25 +108,27 @@ void Box::move_sphere(){
       for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
       //list of particles in that componenet
          if(random_sphere_from_list == partic->get_particle_id()){
-            int temp_coord[3];
+            double temp_coord[3];
 
             for(int d = 0; d < 3; d++)
             {
                temp_coord[d] = partic->get_coordinate(d);
             }
 
+            double new_coords[3];
 
-            /*
-            
-            needs to change coord
-            
-            */
+            for(int d = 0; d < 3; d++){
+               partic->set_coordinate(d, (rand() % 10+1)/10);
+               }
+
             int collisions_after = count_collisions();
-
-            
+            std::cout << "\n";
+            std::cout << collision_before << " "<< collisions_after;
+            std::cout << "\n";
             double probability_move  = exp(collision_before - collisions_after); // Number of collisions
-            std::cout << probability_move << "<" << (rand() % 100 + 1);
-            if(probability_move < (rand() % 100 + 1)) {
+            double random = (rand() % 100 + 1);
+            std::cout << probability_move << "<" << random/100;
+            if(probability_move < random/100) {
                std::cout << "change";
                for(int d = 0; d < 3; d++){
                   partic->set_coordinate(d, temp_coord[d]);

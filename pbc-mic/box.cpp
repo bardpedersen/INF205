@@ -107,7 +107,6 @@ void Box::move_sphere(){
       //list of particles in that componenet
          if(random_sphere_from_list == partic->get_particle_id()){
             double temp_coord[3];
-            //srand(time(NULL));
 
             for(int d = 0; d < 3; d++)
             {
@@ -117,17 +116,21 @@ void Box::move_sphere(){
             double new_coords[3];
 
             for(int d = 0; d < 3; d++){
-               double box_size = this->extension[d];
-               partic->set_coordinate(d, (rand() % 4 + 1)); //need to move within perodic boundry.
+
+               new_coords[d] = (rand() % 10 + 1);
+               while(new_coords[d] < 0.0) new_coords[d] += this->extension[d];
+               while(new_coords[d] > this->extension[d]) new_coords[d] -= this->extension[d];
+
+               partic->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
                }
 
             int collisions_after = count_collisions();
-            std::cout << "\n";
-            std::cout << collision_before << " "<< collisions_after;
-            std::cout << "\n";
+            //std::cout << "\n";
+            //std::cout << collision_before << " "<< collisions_after;
+            //std::cout << "\n";
             double probability_move  = exp(collision_before - collisions_after); // Number of collisions
             double random = (rand() % 100 + 1);
-            std::cout << probability_move << ">" << random/100;
+            //std::cout << probability_move << ">" << random/100;
             if(probability_move < random/100) {
                for(int d = 0; d < 3; d++){
                   partic->set_coordinate(d, temp_coord[d]);

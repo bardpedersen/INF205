@@ -1,6 +1,7 @@
 #include <cassert>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 #include "box.h"
 #include "sphere.h"
@@ -13,33 +14,49 @@ int main(int argc, char** argv)
    std::ifstream file_in{argv[1]};
    file_in >> b;
    file_in.close();
+
+   std::multimap<double, int, std::greater<int>> compon = b.get_components();
+   std::vector<std::vector<Sphere>> particle = b.get_particles();
    
+   int lowest_number_of_collisions = b.count_collisions();
+   int size = b.get_N();
+   double coord[size][3];
    for(int i = 0; i < 100; i++){
-      
-      if(b.count_collisions()==0){
+
+      int number_of_collisions = b.count_collisions();
+      if(number_of_collisions==0){ //if collsion == 0, break and stop. 
          break;
       }
 
-      //if collsion == 0, break and stop. 
+      //save the coords when the collision is lowest 
+      if(number_of_collisions < lowest_number_of_collisions){
 
-      /*
-      //save the coords when the collision is lowest
-      std::vector<double> least_collison_coord[b.get_N()]; //list in list with each sphere with its coords
-      double coord[3];
-
-      for(auto comp = b.get_components().begin(); comp != b.get_components().end(); comp++){
-         for(auto partic = b.get_particles().[comp->second].begin(); partic != b.get_particles().[comp->second].end(); partic++){
-            for(int c = 0; c < 3; c++){
-               coord[c] = partic->get_coordinate(c);
+         lowest_number_of_collisions = number_of_collisions;
+         for(auto comp = compon.begin(); comp != compon.end(); comp++){
+            for(auto partic = particle[comp->second].begin(); partic != particle[comp->second].end(); partic++){
+               int particle_number = partic->get_particle_id();
+            
+               for(int c = 0; c < 3; c++){
+                  coord[particle_number][c] = partic->get_coordinate(c);
+               }
             }
-            least_collison_coord.push_back(coord[3]);
-            std::cout << least_collison_coord;
          }
       }
-      */
       b.move_sphere();
-
    }
+
+
+   
+   for(auto comp = compon.begin(); comp != compon.end(); comp++){
+      for(auto partic = particle[comp->second].begin(); partic != particle[comp->second].end(); partic++){
+         int particle_number = partic->get_particle_id();
+               
+         for(int c = 0; c < 3; c++){
+            partic->set_coordinate(c, coord[particle_number][c]);
+         }
+      }
+   }
+
 
 
 

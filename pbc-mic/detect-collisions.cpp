@@ -15,8 +15,8 @@ int main(int argc, char** argv)
    file_in >> b;
    file_in.close();
 
-   std::multimap<double, int, std::greater<int>> compon = b.get_components();
-   std::vector<std::vector<Sphere>> particle = b.get_particles();
+   std::multimap<double, int, std::greater<int>> &compon = b.get_components();
+   std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
    
    int lowest_number_of_collisions = b.count_collisions();
    int size = b.get_N();
@@ -49,7 +49,6 @@ int main(int argc, char** argv)
    }
 
 
-   /* Need to pass by refrance so coords can be changed*/
    for(auto comp = compon.begin(); comp != compon.end(); comp++){
       for(auto partic = particle[comp->second].begin(); partic != particle[comp->second].end(); partic++){
          int particle_number = partic->get_particle_id();

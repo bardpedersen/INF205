@@ -16,10 +16,10 @@ public:
 
    void move_sphere(); // move spheres
    
-   int get_N() const{ return this->N;};
+   int get_N() const{return this->N;};
 
-   std::multimap<double, int, std::greater<int>> get_components() const{ return this->components;};
-   std::vector<std::vector<Sphere>> get_particles() const{ return this->particles;};
+   std::multimap<double, int, std::greater<int>> &get_components() {return this->components;};
+   std::vector<std::vector<Sphere>> &get_particles() {return this->particles;};
 
    
 

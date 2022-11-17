@@ -31,8 +31,8 @@ void Box::in(std::istream* source)
             *source >> x[d];
             
             // apply periodic boundary condition
-            while(x[d] < 0.0) x[d] += this->extension[d];
-            while(x[d] > this->extension[d]) x[d] -= this->extension[d];
+            while((x[d]) < 0.0) x[d] += this->extension[d]; //- sphere_size dos make first print - - - ??
+            while((x[d]) > this->extension[d]) x[d] -= this->extension[d]; //+ sphere_size
          }
          
          // insert new particle
@@ -118,8 +118,8 @@ void Box::move_sphere(){
             for(int d = 0; d < 3; d++){
 
                new_coords[d] = (rand() % 10 + 1);
-               while(new_coords[d] < 0.0) new_coords[d] += this->extension[d];
-               while(new_coords[d] > this->extension[d]) new_coords[d] -= this->extension[d];
+               while((new_coords[d] - Comp->first) < 0.0) new_coords[d] += 1; //if pbc is true / increese with this->extension[d], got a case where box is 4**3 and sphere size is 2 and start in positsion (1,1,1) 
+               while((new_coords[d] + Comp->first) > this->extension[d]) new_coords[d] -= 1; // + Comp->first 
 
                partic->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
                }

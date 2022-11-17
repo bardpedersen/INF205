@@ -57,6 +57,7 @@ int main(int argc, char** argv)
             partic->set_coordinate(c, coord[particle_number][c]);
             std::cout <<coord[particle_number][c];
          }
+         std::cout <<" "<< partic->get_size();
          std::cout << "\n";
       }
    }

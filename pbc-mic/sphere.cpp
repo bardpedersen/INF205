@@ -40,7 +40,7 @@ bool Sphere::check_collision(const Sphere* other, const double box_size[3]) cons
       double dist_d = other->coords[d] - this->coords[d];
       
       // apply minimum image convention
-      if(dist_d > 0.5*box_size[d]) dist_d -= box_size[d]; //3 og 0, 3, 3> 0.5*4 3 -4 =  -1
+      if(dist_d > 0.5*box_size[d]) dist_d -= box_size[d];
       else if(dist_d < -0.5*box_size[d]) dist_d += box_size[d]; 
       
       square_distance += dist_d*dist_d;
@@ -49,7 +49,7 @@ bool Sphere::check_collision(const Sphere* other, const double box_size[3]) cons
    /*
     * is the square distance smaller than the square of the sum of radii?
     */
-   double sum_of_radii = 0.5 * (this->size + other->size); //why multiply by 0.5
+   double sum_of_radii = 0.5 * (this->size + other->size); //why multiply by 0.5??
    bool collision = (square_distance < sum_of_radii*sum_of_radii);
    
    if(collision) // debug_output

@@ -1,10 +1,7 @@
 #include <cassert>
 #include <iostream>
-#include <stdlib.h>
-#include <cmath>
 
 #include "sphere.h"
-
 
 double Sphere::get_coordinate(int axis) const
 {
@@ -24,14 +21,14 @@ void Sphere::set_coordinate(int axis, double in_coord)
    this->coords[axis] = in_coord;
 }
 
-// is there a collision between this sphere and another?
+// is there an overlap between this sphere and another?
 //
-// by a collision here we mean a genuine overlap between spheres:
-// if two spheres barely touch each other (square_distance == sum_of_radii*sum_of_radii) it does not count as a collision;
+// return value:
+//    0, if there is no overlap
+//    1, if there is an overlap, i.e., distance is smaller than the sum of radii
+//    8, if the distance is even smaller than half the sum of radii (soft shielding)
 //
-// it is only counted if, below, the square distance is properly smaller than the square of the sum of radii
-//
-bool Sphere::check_collision(const Sphere* other, const double box_size[3]) const
+int Sphere::check_overlap(const Sphere* other, const double box_size[3]) const
 {
    // square distance between the centre of i and the centre of j
    double square_distance = 0.0;
@@ -50,16 +47,19 @@ bool Sphere::check_collision(const Sphere* other, const double box_size[3]) cons
     * is the square distance smaller than the square of the sum of radii?
     */
    double sum_of_radii = 0.5 * (this->size + other->size);
-   bool collision = (square_distance < sum_of_radii*sum_of_radii);
+   int overlap = 0;
+   if(square_distance < 0.25*sum_of_radii*sum_of_radii) overlap = 8;  // soft shielding
+   else if(square_distance < sum_of_radii*sum_of_radii) overlap = 1;  // normal overlap
    
-   if(collision) // debug_output
-   {  
-      /*
-      std::cout << "\t\tcollision between " << this->particle_id << " (" << this->coords[0] << "/"
+   /*
+   if(overlap) // debug_output
+   {
+      std::cout << "\t\toverlap (potential = " << overlap
+                << ") between " << this->particle_id << " (" << this->coords[0] << "/"
                 << this->coords[1] << "/" << this->coords[2] << "),\tsize " << this->size
                 << ",\t\tand " << other->particle_id << " (" << other->coords[0] << "/"
                 << other->coords[1] << "/" << other->coords[2] << "),\tsize " << other->size << "\n";
-      */
    }
-   return collision;
+    */
+   return overlap;
 }

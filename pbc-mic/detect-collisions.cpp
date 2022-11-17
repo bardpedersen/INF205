@@ -15,5 +15,6 @@ int main(int argc, char** argv)
    file_in.close();
    
    long num_collisions = b.count_collisions();
+   b.move_sphere();
    std::cout << "\n===\nCollisions: " << num_collisions << "\n";
 }

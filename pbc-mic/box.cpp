@@ -1,4 +1,5 @@
 #include "box.h"
+#include "sphere.h"
 #include <cmath>
 #include <iostream>
 
@@ -79,8 +80,7 @@ long Box::count_collisions()
             for(auto i = this->particles[A->second].begin(); i != this->particles[A->second].end(); i++)
                for(auto j = this->particles[B->second].begin(); j != this->particles[B->second].end(); j++)
                {
-                  //std::cout << "\t" << i->get_particle_id()
-                  //           << "\t" << j->get_particle_id() << "\n";  // debug output
+                  //std::cout << "\t" << i->get_coordinate(2) << "\n";  // debug output
 
                   if(i->check_collision(&(*j), this->extension)) num_collisions++;
                }
@@ -90,33 +90,48 @@ long Box::count_collisions()
 }
 
 
+
 void Box::move_sphere(){
 
    int collision_before = count_collisions();
 
    //Choose random sphere
-   int random_sphere_from_list = rand() % this->N +1; // pick a random index
-   int random_sphere = this->sphere[random_sphere_from_list];
+   int random_sphere_from_list = rand() % this->N; 
+   //if random number is 7 we know that it isnt in the first component, so
+   //needs to have the size of each component to know wich component to go thru
+   // pick a random index
+
+   for(auto Comp = this->components.begin(); Comp != this->components.end(); Comp++){
+      //comp list of the different components 
+      for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
+      //list of particles in that componenet
+         if(random_sphere_from_list == partic->get_particle_id()){
+            int temp_coord[3];
+
+            for(int d = 0; d < 3; d++)
+            {
+               temp_coord[d] = partic->get_coordinate(d);
+            }
 
 
-   int temp_coord[3];
+            /*
+            
+            needs to change coord
+            
+            */
+            int collisions_after = count_collisions();
 
-   for(int d = 0; d < 3; d++)
-   {
-   temp_coord[d] = this->coords[d];
-   }
+            
+            double probability_move  = exp(collision_before - collisions_after); // Number of collisions
+            std::cout << probability_move << "<" << (rand() % 100 + 1);
+            if(probability_move < (rand() % 100 + 1)) {
+               std::cout << "change";
+               for(int d = 0; d < 3; d++){
+                  partic->set_coordinate(d, temp_coord[d]);
 
-   int collisions_after = count_collisions();
-
-   double probability_move  = exp(collision_before - collisions_after); // Number of collisions 
-
-   if(probability_move > (rand() % 100 + 1)/100) {
-      //moving sphere
-   }
-   else{
-      for(int d = 0; d < 3; d++)
-      {
-      this->coords[d] = temp_coord[d];
+               }
+            }
+         }
       }
    }
 }

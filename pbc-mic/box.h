@@ -14,7 +14,7 @@ public:
    
    long count_collisions();  // count number of collisions
 
-   void move_sphere();
+   void move_sphere(); // move spheres
    
 private:
    double extension[3];  // size of the box

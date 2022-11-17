@@ -21,13 +21,12 @@ public:
    void set_coordinate(int axis, double in_coord);  /* axis = 0 for x, 1 for y, 2 for z */
    
    /*
-    * is there a collision between this sphere and another?
-    * this method determines it
+    * is there an overlap between this sphere and another?
+    * this method determines it (0: no overlap, 1: overlap, 8: soft shielding broken)
     */
-   bool check_collision(const Sphere* other, const double box_size[3]) const;
+   int check_overlap(const Sphere* other, const double box_size[3]) const;
 
 private:
-
    size_t particle_id = 0;
    double size = 0.0;
    double coords[3] = {0.0, 0.0, 0.0};

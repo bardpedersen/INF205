@@ -118,7 +118,7 @@ int Box::move_sphere(){
                   partic->set_coordinate(d, temp_coord[d]);
 
                }
-               collision_before = collisions_after
+               collision_before = collisions_after;
             }
          }
       }

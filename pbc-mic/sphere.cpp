@@ -39,7 +39,7 @@ bool Sphere::check_collision(const Sphere* other, const double box_size[3]) cons
    {
       double dist_d = other->coords[d] - this->coords[d];
       
-      // apply minimum image convention
+      // apply minimum image convention ????
       if(dist_d > 0.5*box_size[d]) dist_d -= box_size[d];
       else if(dist_d < -0.5*box_size[d]) dist_d += box_size[d]; 
       

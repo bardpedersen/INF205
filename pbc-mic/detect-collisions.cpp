@@ -22,8 +22,9 @@ int main(int argc, char** argv)
    int size = b.get_N();
    double coord[size][3];
    int itteration = 0;
-   std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n";
-   for(int i = 0; i < 1000; i++){
+   std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n===\n";
+
+   for(int i = 0; i < 10000; i++){
       itteration++;
 
       int number_of_collisions = b.count_collisions();
@@ -66,7 +67,7 @@ int main(int argc, char** argv)
 
 
 
-   int num_collisions = b.count_collisions();
+   int num_collisions = b.count_collisions(); // Dont need, change by outputting saved least amout of spheres.
    std::cout << "\n===\nCollisions: " << num_collisions << "\n";
    std::cout << "===\nNumber of itterations: " << itteration << "\n";
 }

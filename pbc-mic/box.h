@@ -14,7 +14,7 @@ public:
    
    long count_collisions();  // count number of collisions
 
-   void move_sphere(); // move spheres
+   int move_sphere(); // move spheres
    
    int get_N() const{return this->N;};
 

@@ -24,7 +24,7 @@ public:
     * is there a collision between this sphere and another?
     * this method determines it
     */
-   bool check_collision(const Sphere* other, const double box_size[3]) const;
+   int check_collision(const Sphere* other, const double box_size[3]) const;
 
 private:
 

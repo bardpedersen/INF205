@@ -53,45 +53,27 @@ std::istream& operator>>(std::istream& is, Box& b) {
 //
 long Box::count_collisions()
 {
-   long num_collisions = 0;
+   long overlaps = 0;
    
    // iterate over pairs of components A and B
    for(auto A = this->components.begin(); A != this->components.end(); A++)
       for(auto B = A; B != this->components.end(); B++)
       {
-         // std::cout << A->second << "(" << A->first << ") x "
-         //           << B->second << "(" << B->first << ")\n";  // debug output
-                   
-         if(A->second == B->second) // same component
-         {
-            // iterate over pairs of particles i and j
+         if(A->second == B->second)  // same component: iterate over pairs of particles i and j
             for(auto i = this->particles[A->second].begin(); std::next(i) != this->particles[A->second].end(); i++)
                for(auto j = std::next(i); j != this->particles[B->second].end(); j++)
-               {
-                  //std::cout << "\t" << i
-                  //          << "\t" << j << "\n";  // debug output
-                  
-                  if(i->check_collision(&(*j), this->extension)) num_collisions++;
-               }
-         }
-         else // different components
-         {
-            // iterate over pairs of particles i and j
+                  overlaps += i->check_collision(&(*j), this->extension);
+
+         else  // different components: iterate over pairs of particles i and j
             for(auto i = this->particles[A->second].begin(); i != this->particles[A->second].end(); i++)
                for(auto j = this->particles[B->second].begin(); j != this->particles[B->second].end(); j++)
-               {
-                  //std::cout << "\t" << i->get_coordinate(2) << "\n";  // debug output
-
-                  if(i->check_collision(&(*j), this->extension)) num_collisions++;
-               }
-         }
+                  overlaps += i->check_collision(&(*j), this->extension);
       }
-   return num_collisions;
+   return overlaps;
 }
 
 
-
-void Box::move_sphere(){
+int Box::move_sphere(){
 
    int collision_before = count_collisions();
 
@@ -136,8 +118,10 @@ void Box::move_sphere(){
                   partic->set_coordinate(d, temp_coord[d]);
 
                }
+               collision_before = collisions_after
             }
          }
       }
    }
+   return collision_before;
 }

@@ -24,12 +24,11 @@ int main(int argc, char** argv)
    int itteration = 0;
    std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n===\n";
 
-   for(int i = 0; i < 10000; i++){
+   for(int i = 0; i < 1000; i++){
+
       itteration++;
+      int number_of_collisions = b.move_sphere();
 
-      int number_of_collisions = b.count_collisions();
-
-      //save the coords when the collision is lowest 
       if(number_of_collisions < lowest_number_of_collisions){
 
          lowest_number_of_collisions = number_of_collisions;
@@ -47,7 +46,6 @@ int main(int argc, char** argv)
       if(number_of_collisions==0){ //if collsion == 0, break and stop. 
          break;
       }
-      b.move_sphere();
    }
 
 
@@ -57,17 +55,13 @@ int main(int argc, char** argv)
                
          for(int c = 0; c < 3; c++){
             partic->set_coordinate(c, coord[particle_number][c]);
-            std::cout <<coord[particle_number][c];
+            //std::cout <<coord[particle_number][c];
          }
-         std::cout <<" "<< partic->get_size();
-         std::cout << "\n";
+         //std::cout <<" "<< partic->get_size();
+         //std::cout << "\n";
       }
    }
 
-
-
-
-   int num_collisions = b.count_collisions(); // Dont need, change by outputting saved least amout of spheres.
-   std::cout << "\n===\nCollisions: " << num_collisions << "\n";
+   std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n";
    std::cout << "===\nNumber of itterations: " << itteration << "\n";
 }

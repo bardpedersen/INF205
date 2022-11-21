@@ -31,7 +31,7 @@ void Sphere::set_coordinate(int axis, double in_coord)
 //
 // it is only counted if, below, the square distance is properly smaller than the square of the sum of radii
 //
-bool Sphere::check_collision(const Sphere* other, const double box_size[3]) const
+int Sphere::check_collision(const Sphere* other, const double box_size[3]) const
 {
    // square distance between the centre of i and the centre of j
    double square_distance = 0.0;
@@ -49,17 +49,20 @@ bool Sphere::check_collision(const Sphere* other, const double box_size[3]) cons
    /*
     * is the square distance smaller than the square of the sum of radii?
     */
-   double sum_of_radii = 0.5 * (this->size + other->size); //why multiply by 0.5??
-   bool collision = (square_distance < sum_of_radii*sum_of_radii);
+   double sum_of_radii = (this->size + other->size);
+   int overlap = 0;
+   if(square_distance < 0.25*sum_of_radii*sum_of_radii) overlap = 8;  // soft shielding
+   else if(square_distance < sum_of_radii*sum_of_radii) overlap = 1;  // normal overlap
    
+   /*
    if(collision) // debug_output
    {  
-      /*
       std::cout << "\t\tcollision between " << this->particle_id << " (" << this->coords[0] << "/"
                 << this->coords[1] << "/" << this->coords[2] << "),\tsize " << this->size
                 << ",\t\tand " << other->particle_id << " (" << other->coords[0] << "/"
                 << other->coords[1] << "/" << other->coords[2] << "),\tsize " << other->size << "\n";
-      */
+      
    }
-   return collision;
+   */
+   return overlap;
 }

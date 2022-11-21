@@ -3,3 +3,5 @@ Here we can write suggestions for how to solve the problem of the spheres.
 We can sort all spheres based on size, place the big ones first in cubes of spheres, then try to fit smaller spheres inbetween.
 
 The Monty Carlo method :)
+
+Counting collisions are extremly slow. Needs to get better for code to run faster.

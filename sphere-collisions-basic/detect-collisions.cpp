@@ -48,53 +48,43 @@ int main()
    // {
    //    sim_coord.assign(coordX)
    // }
-
-   // while(no_improvement_count<1000)
-   // {
-   //    for(int i = 0; i < N; i++)
-   //    {
-   //       coordx[N]=rand()%100;
-   //       coordy[N]=rand()%100;   
-   //       coordz[N]=rand()%100;
-
-   //       std::cout << "Sphere N"<<i<< ": ("<< coordx[N]<<","<<coordy[N]<<","<<coordz[N]<<")\n";
-   //    }
-
-   //    float num_collisions = count_collisions(N, size, coordx, coordy, coordz);
-   //    std::cout << num_collisions << " collisions were found.\n";
-      
-   //    if(num_collisions<min_nb_collisions)
-   //    {
-   //       min_nb_collisions=num_collisions;
-   //       no_improvement_count=0;
-   //    }
-   //    else
-   //    {
-   //       no_improvement_count++;
-   //    }
-   //    count++;
-   // }
-
-   // std::cout<<"\nMinimum number of collisions: "<<min_nb_collisions<<"\n";
-   // std::cout<<count;
-   
-   *size=10;
-   std::cout << "Size: "<< *size << "\n";
-
    for(int i = 0; i < N; i++)
    {
-      coordx[N]=rand()%10;
-      coordy[N]=rand()%10;   
-      coordz[N]=rand()%10;
-
-      std::cout << "Sphere N"<<i<< ": ("<< coordx[N]<<","<<coordy[N]<<","<<coordz[N]<<")\n";
+      std::cin >> size[i];
    }
-   
 
-   float num_collisions = count_collisions(N, &size, &coordx, &coordy, &coordz);
+   while(no_improvement_count<10)
+   {
+      for(int i = 0; i < N; i++)
+      {
+         coordx[i]=rand()%10;
+         coordy[i]=rand()%10;   
+         coordz[i]=rand()%10;
 
-   std::cout << num_collisions << " collisions were found.\n";
+         std::cout << "Sphere N"<<i<< " Size: "<< size[i]<<" Coord: "<<"("<< coordx[i]<<","<<coordy[i]<<","<<coordz[i]<<")\n";
+      }
 
+      
+      float num_collisions = count_collisions(N, &size, &coordx, &coordy, &coordz);
+      
+      std::cout << num_collisions << " collisions were found.\n\n";
+
+      if(num_collisions<min_nb_collisions)
+      {
+         min_nb_collisions=num_collisions;
+         no_improvement_count=0;
+      }
+      else
+      {
+         no_improvement_count++;
+      }
+      count++;
+   }
+
+   std::cout<<"\nMinimum number of collisions: "<<min_nb_collisions<<"\n";
+   std::cout<<count;
+
+ 
    /*
     * deallocate all the arrays created with "new"
     */

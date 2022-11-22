@@ -34,9 +34,17 @@ bool check_collision(
 
    // std::cout<< "("<<size_i<<","<<size_j<<")\n";
 
+   // std::cout<< "("<<*coordx_i_value<<","<<*coordx_j_value<<")\n";
+   // std::cout<< "("<<*coordy_i_value<<","<<*coordy_j_value<<")\n";
+   // std::cout<< "("<<*coordz_i_value<<","<<*coordz_j_value<<")\n";
+
+   // std::cout<< "("<<size_i<<","<<size_j<<")\n";
+
    // std::cout<< "("<<*coordx_i<<","<<*coordx_j<<")\n";
    // std::cout<< "("<<*coordy_i<<","<<*coordy_j<<")\n";
    // std::cout<< "("<<*coordz_i<<","<<*coordz_j<<")\n";
+
+
 
    /*
     * vector pointing from the centre of i to the centre of j
@@ -54,6 +62,8 @@ bool check_collision(
     * is the square distance smaller than the square of the sum of radii?
     */
    float sum_of_radii = 0.5*(size_i+size_j);
+
+   std::cout<<(square_distance < sum_of_radii*sum_of_radii)<<"\n";
    return square_distance < sum_of_radii*sum_of_radii;
 }
 
@@ -75,20 +85,20 @@ int count_collisions(int N,float *size[],  float *coordx[],  float *coordy[],  f
 
    int num_collisions = 0;
    
-   // for(int i = 0; i < N; i++)
-   // {
-   //    std::cout << "Sphere N"<<i<< ": ("<< coordx_value[N]<<","<<coordy_value[N]<<","<<coordz_value[N]<<")\n";
-   // }
-
    /*
     * loop going from i = 0, j = 1 up to i = N-2, j = N-1, traversing all pairs
     */ 
-   
+
    for(int i = 0; i < N-1; i++)
       for(int j = i+1; j < N; j++)
+      {
+         // std::cout<<"("<<i<<" , "<<j<<") \n";
+         // std::cout<<size_value[i]<<" " <<size_value[j]<<" " << coordx_value[i]<<" " << coordx_value[j]<<" " << coordy_value[i]<<" " << coordy_value[j]<<" " << coordz_value[i]<<" " << coordz_value[j]<<"\n";
 
          if(check_collision(size_value[i], size_value[j], &coordx_value[i], &coordx_value[j], &coordy_value[i], &coordy_value[j], &coordz_value[i], &coordz_value[j]))
             num_collisions++;
+      }
+
    
    return num_collisions;
 }

@@ -8,7 +8,7 @@
  * coordx[0], ..., coordx[N-1] are the x coordinates of the centres of all the spheres
  * the y and z coordinates are handled in the same way
  */
-int count_collisions(int N, float size[], float coordx[], float coordy[], float coordz[]);
+int count_collisions(int N, float *size[], float *coordx[], float *coordy[], float *coordz[]);
 
 /*
  * is there a collision between spheres i and j?
@@ -17,10 +17,12 @@ int count_collisions(int N, float size[], float coordx[], float coordy[], float 
  * as above, size values are diameters, and the other values are spatial coordinates
  */
 bool check_collision(
-   float size_i,   float size_j,
-   float coordx_i, float coordx_j,
-   float coordy_i, float coordy_j,
-   float coordz_i, float coordz_j
+    float size_i,   float size_j,
+   float *coordx_i,  float *coordx_j,
+    float *coordy_i,  float *coordy_j,
+     float *coordz_i,  float *coordz_j
 );
+
+
 
 #endif

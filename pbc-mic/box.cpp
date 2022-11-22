@@ -73,9 +73,9 @@ long Box::count_collisions()
 }
 
 
-int Box::move_sphere(){
+int Box::move_sphere(int number_of_coll){
 
-   int collision_before = count_collisions();
+   int collision_before = number_of_coll;
 
    //Choose random sphere
    int random_sphere_from_list = rand() % this->N; 
@@ -108,7 +108,7 @@ int Box::move_sphere(){
 
             int collisions_after = count_collisions();
             //std::cout << "\n";
-            //std::cout << collision_before << " "<< collisions_after;
+            //std::cout << collision_before << " "<< collisions_after <<"\n";
             //std::cout << "\n";
             double probability_move  = exp(collision_before - collisions_after); // Number of collisions
             double random = (rand() % 100 + 1);
@@ -118,6 +118,8 @@ int Box::move_sphere(){
                   partic->set_coordinate(d, temp_coord[d]);
 
                }
+            }
+            else{
                collision_before = collisions_after;
             }
          }

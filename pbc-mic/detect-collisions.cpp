@@ -19,6 +19,7 @@ int main(int argc, char** argv)
    std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
    
    int lowest_number_of_collisions = b.count_collisions();
+   int collisions_to_funct = lowest_number_of_collisions;
    int size = b.get_N();
    double coord[size][3];
    int itteration = 0;
@@ -27,7 +28,7 @@ int main(int argc, char** argv)
    for(int i = 0; i < 1000; i++){
 
       itteration++;
-      int number_of_collisions = b.move_sphere();
+      int number_of_collisions = b.move_sphere(collisions_to_funct); // Need to fix
 
       if(number_of_collisions < lowest_number_of_collisions){
 
@@ -46,6 +47,7 @@ int main(int argc, char** argv)
       if(number_of_collisions==0){ //if collsion == 0, break and stop. 
          break;
       }
+      collisions_to_funct = number_of_collisions;
    }
 
 
@@ -55,7 +57,7 @@ int main(int argc, char** argv)
                
          for(int c = 0; c < 3; c++){
             partic->set_coordinate(c, coord[particle_number][c]);
-            //std::cout <<coord[particle_number][c];
+            //std::cout <<coord[particle_number][c] << "";
          }
          //std::cout <<" "<< partic->get_size();
          //std::cout << "\n";

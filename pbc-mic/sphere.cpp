@@ -49,7 +49,7 @@ bool Sphere::check_collision(const Sphere* other, const double box_size[3]) cons
    /*
     * is the square distance smaller than the square of the sum of radii?
     */
-   double sum_of_radii = 0.5 * (this->size + other->size); //why multiply by 0.5??
+   double sum_of_radii = (this->size + other->size); //why multiply by 0.5?? Fordi
    bool collision = (square_distance < sum_of_radii*sum_of_radii);
    
    if(collision) // debug_output

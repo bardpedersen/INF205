@@ -23,7 +23,7 @@ int main(int argc, char** argv)
    double coord[size][3];
    int itteration = 0;
    std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n";
-   for(int i = 0; i < 1000; i++){
+   for(int i = 0; i < 30000; i++){
       itteration++;
 
       int number_of_collisions = b.count_collisions();

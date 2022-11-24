@@ -29,12 +29,12 @@ int main(int argc, char** argv)
 
    std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n===\n";
 
-   for(int i = 0; i < 1000; i++){
+   for(int i = 0; i < 1000; i++){ //number of spheres to move
       std::cout << "\n===\nCollisions: " << lowest_number_of_collisions <<" "<< itteration << "\n===\n";
       itteration++;
       int number_of_collisions = b.move_sphere(collisions_to_funct); // Need to fix
 
-      if(number_of_collisions < lowest_number_of_collisions){
+      if(number_of_collisions < lowest_number_of_collisions){ //check if the collosions have lower and if we save the coordinates.
 
          lowest_number_of_collisions = number_of_collisions;
          for(auto comp = compon.begin(); comp != compon.end(); comp++){
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
       collisions_to_funct = number_of_collisions;
    }
 
-
+   //assign the coords with the lowest collisions back to the spheres
    for(auto comp = compon.begin(); comp != compon.end(); comp++){
       for(auto partic = particle[comp->second].begin(); partic != particle[comp->second].end(); partic++){
          int particle_number = partic->get_particle_id();

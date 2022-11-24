@@ -2,6 +2,7 @@
 #include "sphere.h"
 #include <cmath>
 #include <iostream>
+#include "small_box.h"
 
 void Box::in(std::istream* source)
 {
@@ -54,7 +55,7 @@ std::istream& operator>>(std::istream& is, Box& b) {
 long Box::count_collisions()
 {
    long overlaps = 0;
-   
+
    // iterate over pairs of components A and B
    for(auto A = this->components.begin(); A != this->components.end(); A++)
       for(auto B = A; B != this->components.end(); B++)
@@ -72,6 +73,12 @@ long Box::count_collisions()
    return overlaps;
 }
 
+
+double Box::get_extension(int axis) const
+{
+   assert((axis == 0) || (axis == 1) || (axis == 2));
+   return this->extension[axis];
+}
 
 int Box::move_sphere(int number_of_coll){
 
@@ -127,3 +134,106 @@ int Box::move_sphere(int number_of_coll){
    }
    return collision_before;
 }
+
+/////////////////////////////////////////////////////////////////////////////
+
+void Box::split_boxes(int number_of_boxes){
+   double size_of_small_box[3];
+
+   for(int i=0; i<3;i++){
+      size_of_small_box[i] = (this->extension[i] / number_of_boxes);
+   }
+
+   double coords_for_small_box[6];
+
+   coords_for_small_box[0] = 0;
+   coords_for_small_box[1] = size_of_small_box[0];
+
+   coords_for_small_box[2] = 0;
+   coords_for_small_box[3] = size_of_small_box[1];
+
+   coords_for_small_box[4] = 0;
+   coords_for_small_box[5] = size_of_small_box[2];
+
+   for(int i = 0; i<number_of_boxes*number_of_boxes*number_of_boxes; i++){
+      small_Box small; //create new box for each itteration
+
+      if((i)%(number_of_boxes) == 0){
+         coords_for_small_box[0] = 0;
+         coords_for_small_box[1] = size_of_small_box[0];
+         if(i != 0){
+         coords_for_small_box[2] += size_of_small_box[1];
+         coords_for_small_box[3] += size_of_small_box[1];
+         }
+      } 
+
+      
+      if(i == number_of_boxes * number_of_boxes){
+         coords_for_small_box[4] += size_of_small_box[2];
+         coords_for_small_box[5] += size_of_small_box[2];
+         coords_for_small_box[2] = 0;
+         coords_for_small_box[3]= size_of_small_box[1];
+      } 
+
+      for(int i = 0; i < 6; i++){
+         small.set_extension(i, coords_for_small_box[i]);
+      }
+      
+      for(auto Comp = this->components.begin(); Comp != this->components.end(); Comp++){
+         for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
+            int insert = 0;
+            int a = -1;
+            for(int d = 0; d < 5; d++){
+               if(d %2 ==0){
+                  a+=1;
+               }
+               if(((coords_for_small_box[d] <= (partic->get_size()*0.5 + partic->get_coordinate(a))) && ((partic->get_size()*0.5 + partic->get_coordinate(a)) <= coords_for_small_box[d+1]))||
+               ((coords_for_small_box[d]<= (partic->get_coordinate(a) - partic->get_size() * 0.5)) && ((partic->get_coordinate(a) - partic->get_size() * 0.5) <= coords_for_small_box[d+1]))){
+                  insert += 1;
+               }
+               if(insert==3){
+                  partic->set_box_ID(i);
+                  //need to set particle in small_box.
+               }
+            }
+         }
+      }
+      
+      coords_for_small_box[0] += size_of_small_box[0];
+      coords_for_small_box[1] += size_of_small_box[0];
+      this->boxes.push_back(small);
+
+      /*
+      std::vector<Sphere> get_particles = small.get_particles();
+      for(int i=0; i < small.get_N(); i++){
+         std::cout << get_particles[i].get_particle_id();
+      }
+      std::cout << "test";
+      */
+   }
+}
+/*
+Needs a new function that splits box into 8, 27 or 64, the more boxes the faster butt more memory is used.
+Then it only needs to check the collosions in these boxes. This wil limit the amout of calculations. Can aslo use
+mpi to run multiple boxes at the same time.
+
+
+create new struct with small boxes
+
+each box needs start coords and end coords in all 3 directions
+also needs each particle that is in that box.
+total number of particles 
+
+functions that add and remove particles
+
+particles store witch box/boxes they are in. vector so we can add element on the go. min 1 max all boxes at once.
+
+
+only calculate colissions in the boxes that changes.
+
+
+
+done:
+shpheres save box id and can delete them when move.
+
+*/

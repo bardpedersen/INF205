@@ -17,13 +17,16 @@ int main(int argc, char** argv)
 
    std::multimap<double, int, std::greater<int>> &compon = b.get_components();
    std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
-   
+
    int collosions_start = b.count_collisions();
    int lowest_number_of_collisions = collosions_start;
    int collisions_to_funct = collosions_start;
    int size = b.get_N();
    double coord[size][3];
    int itteration = 0;
+
+   b.split_boxes(2);
+
    std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n===\n";
 
    for(int i = 0; i < 1000; i++){

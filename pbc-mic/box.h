@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "sphere.h"
+#include "small_box.h"
 
 class Box
 {
@@ -18,15 +19,20 @@ public:
    
    int get_N() const{return this->N;};
 
+   double get_extension(int axis) const;
+
+   void split_boxes(int number_of_boxes);
+   
+
    std::multimap<double, int, std::greater<int>> &get_components() {return this->components;};
    std::vector<std::vector<Sphere>> &get_particles() {return this->particles;};
-
    
 
 private:
    double extension[3];  // size of the box
    std::multimap<double, int, std::greater<int>> components;  //  IDs (value) ordered by size (key)
    std::vector<std::vector<Sphere>> particles;  // maps each component ID to the spheres associated with that component
+   std::vector<small_Box> boxes;
    size_t N = 0;  // total number of particles
 };
 

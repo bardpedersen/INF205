@@ -3,11 +3,9 @@
 
 int main(){
 
-    int x = 5;
-    int &y = x;
-
-    y = 10;
-    std::cout << x << " "<< &y;
+    int x = 0;
+    int y = 11;
+    std::cout << y%x << " ";
 
 
 return 0;

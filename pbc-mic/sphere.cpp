@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <cmath>
+#include <vector>
 
 #include "sphere.h"
 
@@ -22,6 +23,16 @@ void Sphere::set_coordinate(int axis, double in_coord)
 {
    assert((axis == 0) || (axis == 1) || (axis == 2));
    this->coords[axis] = in_coord;
+}
+
+void Sphere::set_box_ID(int box_id)
+{
+   this->box_ID.push_back(box_id);
+}
+
+void Sphere::erase_box_ID()
+{
+   this->box_ID.clear();
 }
 
 // is there a collision between this sphere and another?
@@ -46,10 +57,7 @@ int Sphere::check_collision(const Sphere* other, const double box_size[3]) const
       square_distance += dist_d*dist_d;
    }
    
-   /*
-    * is the square distance smaller than the square of the sum of radii?
-    */
-   double sum_of_radii = (this->size + other->size);
+   double sum_of_radii = 0.5 * (this->size + other->size);
    int overlap = 0;
    if(square_distance < 0.25*sum_of_radii*sum_of_radii) overlap = 8;  // soft shielding
    else if(square_distance < sum_of_radii*sum_of_radii) overlap = 1;  // normal overlap

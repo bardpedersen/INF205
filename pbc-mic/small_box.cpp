@@ -1,7 +1,8 @@
 #include "sphere.h"
 #include <cmath>
 #include <iostream>
-#include <vector>
+#include <vector
+#include <cassert>
 
 #include "small_box.h"
 

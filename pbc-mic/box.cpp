@@ -158,6 +158,8 @@ void Box::split_boxes(int number_of_boxes){
    for(int i = 0; i<number_of_boxes*number_of_boxes*number_of_boxes; i++){
       small_Box small; //create new box for each itteration
 
+      //Increese x coords unless the itteration is on the number of boxes on one side, then it start from 0.
+      //y increese when x is sett to zero.
       if((i)%(number_of_boxes) == 0){
          coords_for_small_box[0] = 0;
          coords_for_small_box[1] = size_of_small_box[0];
@@ -167,7 +169,7 @@ void Box::split_boxes(int number_of_boxes){
          }
       } 
 
-      
+      //Z is increseing when one "layer" is filled up, the area.
       if(i == number_of_boxes * number_of_boxes){
          coords_for_small_box[4] += size_of_small_box[2];
          coords_for_small_box[5] += size_of_small_box[2];
@@ -175,9 +177,12 @@ void Box::split_boxes(int number_of_boxes){
          coords_for_small_box[3]= size_of_small_box[1];
       } 
 
+      //set coords for small box
       for(int i = 0; i < 6; i++){
          small.set_extension(i, coords_for_small_box[i]);
       }
+      //set id for small box
+      small.set_box_id(i);
       
       for(auto Comp = this->components.begin(); Comp != this->components.end(); Comp++){
          for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
@@ -193,7 +198,7 @@ void Box::split_boxes(int number_of_boxes){
                }
                if(insert==3){
                   partic->set_box_ID(i);
-                  //need to set particle in small_box.
+                  //small.set_particles(&partic); //need to set particle in small_box.
                }
             }
          }
@@ -201,17 +206,15 @@ void Box::split_boxes(int number_of_boxes){
       
       coords_for_small_box[0] += size_of_small_box[0];
       coords_for_small_box[1] += size_of_small_box[0];
+
+      //ad small box to vector
       this->boxes.push_back(small);
 
-      /*
-      std::vector<Sphere> get_particles = small.get_particles();
-      for(int i=0; i < small.get_N(); i++){
-         std::cout << get_particles[i].get_particle_id();
-      }
-      std::cout << "test";
-      */
    }
-}
+   for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
+      std::cout << Comp->get_box_id() << '\n';
+   }
+}  
 /*
 Needs a new function that splits box into 8, 27 or 64, the more boxes the faster butt more memory is used.
 Then it only needs to check the collosions in these boxes. This wil limit the amout of calculations. Can aslo use

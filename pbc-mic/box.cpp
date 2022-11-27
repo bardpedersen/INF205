@@ -1,8 +1,11 @@
 #include "box.h"
 #include "sphere.h"
+#include "small_box.h"
+
 #include <cmath>
 #include <iostream>
-#include "small_box.h"
+#include <cassert>
+
 
 void Box::in(std::istream* source)
 {

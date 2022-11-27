@@ -1,10 +1,12 @@
 #include "sphere.h"
+#include "small_box.h"
+
 #include <cmath>
 #include <iostream>
-#include <vector
+#include <vector>
 #include <cassert>
 
-#include "small_box.h"
+
 
 void small_Box::set_extension(int axis, double in_coord)
 {

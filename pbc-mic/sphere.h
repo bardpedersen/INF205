@@ -17,7 +17,7 @@ public:
    size_t get_particle_id() const { return this->particle_id; }
    double get_size() const { return this->size; }
    double get_coordinate(int axis) const;  // axis = 0 for x, 1 for y, 2 for z 
-   std::vector<int> get_box_ID() const { return this-> box_ID; }
+   std::vector<int> &get_box_ID() { return this->box_ID; }
 
    
    void set_particle_id(size_t i_pid) { this->particle_id = i_pid; }

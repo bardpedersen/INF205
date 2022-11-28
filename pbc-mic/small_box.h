@@ -13,7 +13,7 @@ public:
    void set_extension(int axis, double in_coord);
    void set_particles(Sphere &partic);
    void set_box_id(size_t box_ID);
-   void remove_particles(Sphere &partic);
+   void remove_particles(size_t &partic_id);
 
    double get_extension(int axis) const;
    int get_N() const { return this->N;}

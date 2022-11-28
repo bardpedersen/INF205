@@ -11,7 +11,7 @@ class small_Box
 {
 public:
    void set_extension(int axis, double in_coord);
-   void set_particles(Sphere *partic);
+   void set_particles(Sphere &partic);
    void set_box_id(size_t box_ID);
 
    double get_extension(int axis) const;

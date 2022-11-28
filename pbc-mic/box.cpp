@@ -55,21 +55,19 @@ std::istream& operator>>(std::istream& is, Box& b) {
 long Box::count_collisions()
 {
    long overlaps = 0;
+   
+   for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
+      if(Comp->get_particles().size() != 0){
+         for(auto partic_1 = Comp->get_particles().begin();  std::next(partic_1) != Comp->get_particles().end(); partic_1++){
+            for(auto partic_2 = std::next(partic_1); partic_2 != Comp->get_particles().end(); partic_2++){
 
-   // iterate over pairs of components A and B
-   for(auto A = this->components.begin(); A != this->components.end(); A++)
-      for(auto B = A; B != this->components.end(); B++)
-      {
-         if(A->second == B->second)  // same component: iterate over pairs of particles i and j
-            for(auto i = this->particles[A->second].begin(); std::next(i) != this->particles[A->second].end(); i++)
-               for(auto j = std::next(i); j != this->particles[B->second].end(); j++)
-                  overlaps += i->check_collision(&(*j), this->extension);
-
-         else  // different components: iterate over pairs of particles i and j
-            for(auto i = this->particles[A->second].begin(); i != this->particles[A->second].end(); i++)
-               for(auto j = this->particles[B->second].begin(); j != this->particles[B->second].end(); j++)
-                  overlaps += i->check_collision(&(*j), this->extension);
+               std::cout << partic_1->get_particle_id() << " " << partic_2->get_particle_id() <<"\n";
+               overlaps += partic_1->check_collision(&(*partic_2), this->extension);
+               std::cout << "overlaps: "<< overlaps <<"\n";
+            }
+         }
       }
+   }
    return overlaps;
 }
 
@@ -112,6 +110,10 @@ int Box::move_sphere(int number_of_coll){
 
                partic->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
                }
+
+
+            //needs to move sphere from old to new box.
+
 
             int collisions_after = count_collisions();
             //std::cout << "\n";
@@ -198,7 +200,7 @@ void Box::split_boxes(int number_of_boxes){
                }
                if(insert==3){
                   partic->set_box_ID(i);
-                  //small.set_particles(&partic); //need to set particle in small_box.
+                  small.set_particles(*partic); //set particle in small_box
                }
             }
          }
@@ -211,9 +213,16 @@ void Box::split_boxes(int number_of_boxes){
       this->boxes.push_back(small);
 
    }
+   
    for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
-      std::cout << Comp->get_box_id() << '\n';
+      std::cout <<"box: " <<Comp->get_box_id() << ' ';
+      std::vector<Sphere> &particle = Comp->get_particles();
+      for (auto it = particle.begin(); it != particle.end(); it++){
+        std::cout <<"particle: " <<it->get_particle_id() << " ";
+      }
+   std::cout << "\n";
    }
+   
 }  
 /*
 Needs a new function that splits box into 8, 27 or 64, the more boxes the faster butt more memory is used.

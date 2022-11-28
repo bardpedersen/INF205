@@ -11,8 +11,8 @@ void small_Box::set_extension(int axis, double in_coord)
    this->extension[axis] = in_coord;
 }
 
-void small_Box::set_particles(Sphere *partic){
-    //this->particles.push_back(partic);
+void small_Box::set_particles(Sphere &partic){
+    this->particles.push_back(partic);
     this->N++;
 }
 

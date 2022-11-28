@@ -22,7 +22,11 @@ void small_Box::set_particles(Sphere &partic){
 
 
 void small_Box::remove_particles(Sphere &partic){
-   this->particles.clear(); /////////////////////////////////////////////////////
+   for(auto part = this->particles.begin(); part != this->particles.end(); part++){
+      if(partic.get_particle_id() == part->get_particle_id()){
+         this->particles.erase(part);
+      }
+   }
    this->N--;
 }
 

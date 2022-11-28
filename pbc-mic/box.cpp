@@ -109,7 +109,27 @@ int Box::move_sphere(int number_of_coll){
                while((new_coords[d]) > this->extension[d]) new_coords[d] -= new_coords[d]; 
 
                partic->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
+            }
+
+
+
+
+
+            //debud
+            for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
+               std::cout <<"box: " <<Comp->get_box_id() << ' ';
+               std::vector<Sphere> &particle = Comp->get_particles();
+               for (auto it = particle.begin(); it != particle.end(); it++){
+               std::cout <<"particle: " <<it->get_particle_id() << " ";
                }
+            std::cout << "\n";
+            }
+            
+            //
+
+
+
+
 
             for(auto box = partic->get_box_ID().begin(); box != partic->get_box_ID().end(); box++){
                for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
@@ -119,30 +139,59 @@ int Box::move_sphere(int number_of_coll){
                }
             }
             partic->erase_box_ID();
+            std::cout << partic->get_coordinate(0) << partic->get_coordinate(1) << partic->get_coordinate(2)<< partic->get_size()<<"\n";
          
             //needs to move sphere from old to new box.
             for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
                int insert = 0;
                int a = -1;
-               for(int d = 0; d < 5; d++){
+               std::cout << " ";
+               for(int d = 0; d < 6; d++){
                   if(d %2 ==0){
                      a+=1;
                   }
-                  if(((box_in_box->get_extension(d) <= (partic->get_size()*0.5 + partic->get_coordinate(a))) && ((partic->get_size()*0.5 + partic->get_coordinate(a)) <= box_in_box->get_extension(d)))||
-                  ((box_in_box->get_extension(d)<= (partic->get_coordinate(a) - partic->get_size() * 0.5)) && ((partic->get_coordinate(a) - partic->get_size() * 0.5) <= box_in_box->get_extension(d)))){
+
+                  std::cout << ((box_in_box->get_extension(d) <= (partic->get_size()*0.5 + partic->get_coordinate(a))) && 
+                  ((partic->get_size()*0.5 + partic->get_coordinate(a)) <= box_in_box->get_extension(d)));
+                  std::cout << ((box_in_box->get_extension(d)<= (partic->get_coordinate(a) - partic->get_size() * 0.5)) && 
+                  ((partic->get_coordinate(a) - partic->get_size() * 0.5) <= box_in_box->get_extension(d)));
+
+                  if(((box_in_box->get_extension(d) <= (partic->get_size()*0.5 + partic->get_coordinate(a))) && 
+                  ((partic->get_size()*0.5 + partic->get_coordinate(a)) <= box_in_box->get_extension(d)))||
+                  ((box_in_box->get_extension(d)<= (partic->get_coordinate(a) - partic->get_size() * 0.5)) && 
+                  ((partic->get_coordinate(a) - partic->get_size() * 0.5) <= box_in_box->get_extension(d)))){
                      insert += 1;
-                  }
-                  if(insert==3){
-                     partic->set_box_ID(box_in_box->get_box_id());
-                     box_in_box->set_particles(*partic); //set particle in small_box
+                     std::cout << "hhjølhjergkhgsehgluhserbighseri" <<"\n";
                   }
                }
+               if(insert==3){
+                  partic->set_box_ID(box_in_box->get_box_id());
+                  box_in_box->set_particles(*partic); //set particle in small_box
+               }
             }
+            std::cout <<"\n";
+
+            
+            //to debug
+            for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
+               std::cout <<"box: " <<Comp->get_box_id() << ' ';
+               std::vector<Sphere> &particle = Comp->get_particles();
+               for (auto it = particle.begin(); it != particle.end(); it++){
+               std::cout <<"particle: " <<it->get_particle_id() << " ";
+               }
+            std::cout << "\n";
+            }
+            for(auto box_id = partic->get_box_ID().begin(); box_id != partic->get_box_ID().end(); box_id++){
+               std::cout<<"box id : "<< *box_id << "\n";
+            }
+            //
+
+
+
+
+
 
             int collisions_after = count_collisions();
-            //std::cout << "\n";
-            //std::cout << collision_before << " "<< collisions_after <<"\n";
-            //std::cout << "\n";
             double probability_move  = exp(collision_before - collisions_after); // Number of collisions
             double random = (rand() % 100 + 1);
             //std::cout << probability_move << ">" << random/100;
@@ -213,7 +262,7 @@ void Box::split_boxes(int number_of_boxes){
          for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
             int insert = 0;
             int a = -1;
-            for(int d = 0; d < 5; d++){
+            for(int d = 0; d < 6; d++){
                if(d %2 ==0){
                   a+=1;
                }
@@ -221,10 +270,10 @@ void Box::split_boxes(int number_of_boxes){
                ((coords_for_small_box[d]<= (partic->get_coordinate(a) - partic->get_size() * 0.5)) && ((partic->get_coordinate(a) - partic->get_size() * 0.5) <= coords_for_small_box[d+1]))){
                   insert += 1;
                }
-               if(insert==3){
-                  partic->set_box_ID(i);
-                  small.set_particles(*partic); //set particle in small_box
-               }
+            }
+            if(insert==3){
+               partic->set_box_ID(i);
+               small.set_particles(*partic); //set particle in small_box
             }
          }
       }
@@ -259,16 +308,13 @@ each box needs start coords and end coords in all 3 directions
 also needs each particle that is in that box.
 total number of particles 
 
+
+
 functions that add and remove particles
 
-particles store witch box/boxes they are in. vector so we can add element on the go. min 1 max all boxes at once.
-
+particles store witch box/boxes they are in. vector so we can add element on the go. min 1, max all boxes at once.
 
 only calculate colissions in the boxes that changes.
 
-
-
-done:
-shpheres save box id and can delete them when move.
 
 */

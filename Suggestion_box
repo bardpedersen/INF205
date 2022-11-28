@@ -3,3 +3,11 @@ Here we can write suggestions for how to solve the problem of the spheres.
 We can sort all spheres based on size, place the big ones first in cubes of spheres, then try to fit smaller spheres inbetween.
 
 The Monty Carlo method :)
+
+
+Need to fix moving spheres with samller boxes.
+Need to fix calculation collosions with smaller boxes.
+Need to fix pbc box with smaller boxes.
+
+Need to add comments
+nned to make code prettyer

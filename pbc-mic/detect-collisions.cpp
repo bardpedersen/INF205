@@ -14,7 +14,7 @@ int main(int argc, char** argv)
    std::ifstream file_in{argv[1]};
    file_in >> b;
    file_in.close();
-   b.split_boxes(2);  //number of boxes in qube
+   b.split_boxes(2);  //number of boxes in qube and initelize smaller boxes
 
    std::multimap<double, int, std::greater<int>> &compon = b.get_components();
    std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
@@ -22,18 +22,20 @@ int main(int argc, char** argv)
    int collosions_start = b.count_collisions();
    int lowest_number_of_collisions = collosions_start;
    int collisions_to_funct = collosions_start;
+
    int size = b.get_N();
    double coord[size][3];
    int itteration = 0;
 
    std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n===\n";
 
-   for(int i = 0; i < 1000; i++){ //number of spheres to move
+   for(int i = 0; i < 10; i++){ //number of spheres to move
       std::cout << "\n===\nCollisions: " << lowest_number_of_collisions <<" "<< itteration << "\n===\n";
-      itteration++;
-      int number_of_collisions = b.move_sphere(collisions_to_funct); // Need to fix
 
-      if(number_of_collisions < lowest_number_of_collisions){ //check if the collosions have lower and if we save the coordinates.
+      itteration++;
+      int number_of_collisions = b.move_sphere(collisions_to_funct);
+
+      if(number_of_collisions < lowest_number_of_collisions){ //check if the collosions have lower and if, we save the coordinates.
 
          lowest_number_of_collisions = number_of_collisions;
          for(auto comp = compon.begin(); comp != compon.end(); comp++){

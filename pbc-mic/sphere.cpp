@@ -31,7 +31,7 @@ void Sphere::set_box_ID(int box_id)
 }
 
 void Sphere::erase_box_ID()
-{
+{  
    this->box_ID.clear();
 }
 
@@ -62,15 +62,5 @@ int Sphere::check_collision(const Sphere* other, const double box_size[3]) const
    if(square_distance < 0.25*sum_of_radii*sum_of_radii) overlap = 8;  // soft shielding
    else if(square_distance < sum_of_radii*sum_of_radii) overlap = 1;  // normal overlap
    
-   /*
-   if(collision) // debug_output
-   {  
-      std::cout << "\t\tcollision between " << this->particle_id << " (" << this->coords[0] << "/"
-                << this->coords[1] << "/" << this->coords[2] << "),\tsize " << this->size
-                << ",\t\tand " << other->particle_id << " (" << other->coords[0] << "/"
-                << other->coords[1] << "/" << other->coords[2] << "),\tsize " << other->size << "\n";
-      
-   }
-   */
    return overlap;
 }

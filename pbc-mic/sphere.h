@@ -7,6 +7,7 @@
 class Sphere
 {
 public:
+   //Initelize sphere class with particle id, size and coords
    Sphere(size_t ipid, double is, const double ix[3]) {
       this->set_particle_id(ipid);
       this->set_size(is);
@@ -15,13 +16,13 @@ public:
    
    size_t get_particle_id() const { return this->particle_id; }
    double get_size() const { return this->size; }
-   double get_coordinate(int axis) const;  /* axis = 0 for x, 1 for y, 2 for z */
+   double get_coordinate(int axis) const;  // axis = 0 for x, 1 for y, 2 for z 
    std::vector<int> get_box_ID() const { return this-> box_ID; }
 
    
    void set_particle_id(size_t i_pid) { this->particle_id = i_pid; }
    void set_size(double in_size);
-   void set_coordinate(int axis, double in_coord);  /* axis = 0 for x, 1 for y, 2 for z */
+   void set_coordinate(int axis, double in_coord);  
    void set_box_ID(int box_id);
    void erase_box_ID();
 

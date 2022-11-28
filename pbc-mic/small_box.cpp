@@ -1,5 +1,6 @@
 #include "sphere.h"
 #include "small_box.h"
+#include "box.h"
 
 #include <cmath>
 #include <iostream>
@@ -15,9 +16,16 @@ void small_Box::set_extension(int axis, double in_coord)
 }
 
 void small_Box::set_particles(Sphere &partic){
-    this->particles.push_back(partic);
-    this->N++;
+   this->particles.push_back(partic);
+   this->N++;
 }
+
+
+void small_Box::remove_particles(Sphere &partic){
+   this->particles.clear(); /////////////////////////////////////////////////////
+   this->N--;
+}
+
 
 void small_Box::set_box_id(size_t box_ID){
    this->box_id = box_ID;

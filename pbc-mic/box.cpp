@@ -63,10 +63,7 @@ long Box::count_collisions()
       if(Comp->get_particles().size() != 0){
          for(auto partic_1 = Comp->get_particles().begin();  std::next(partic_1) != Comp->get_particles().end(); partic_1++){
             for(auto partic_2 = std::next(partic_1); partic_2 != Comp->get_particles().end(); partic_2++){
-
-               std::cout << partic_1->get_particle_id() << " " << partic_2->get_particle_id() <<"\n";
                overlaps += partic_1->check_collision(&(*partic_2), this->extension);
-               std::cout << "overlaps: "<< overlaps <<"\n";
             }
          }
       }
@@ -114,9 +111,33 @@ int Box::move_sphere(int number_of_coll){
                partic->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
                }
 
-
+            for(auto box = partic->get_box_ID().begin(); box != partic->get_box_ID().end(); box++){
+               for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
+                  if(*box == box_in_box->get_box_id()){
+                     box_in_box->remove_particles(*partic); //removes particle from small box ///////////////////////////////////////////////////////////////////////////////////////
+                  }
+               }
+            }
+            partic->erase_box_ID();
+         
             //needs to move sphere from old to new box.
-
+            for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
+               int insert = 0;
+               int a = -1;
+               for(int d = 0; d < 5; d++){
+                  if(d %2 ==0){
+                     a+=1;
+                  }
+                  if(((box_in_box->get_extension(d) <= (partic->get_size()*0.5 + partic->get_coordinate(a))) && ((partic->get_size()*0.5 + partic->get_coordinate(a)) <= box_in_box->get_extension(d)))||
+                  ((box_in_box->get_extension(d)<= (partic->get_coordinate(a) - partic->get_size() * 0.5)) && ((partic->get_coordinate(a) - partic->get_size() * 0.5) <= box_in_box->get_extension(d)))){
+                     insert += 1;
+                  }
+                  if(insert==3){
+                     partic->set_box_ID(box_in_box->get_box_id());
+                     box_in_box->set_particles(*partic); //set particle in small_box
+                  }
+               }
+            }
 
             int collisions_after = count_collisions();
             //std::cout << "\n";
@@ -128,7 +149,6 @@ int Box::move_sphere(int number_of_coll){
             if(probability_move < random/100) {
                for(int d = 0; d < 3; d++){
                   partic->set_coordinate(d, temp_coord[d]);
-
                }
             }
             else{

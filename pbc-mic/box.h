@@ -13,7 +13,7 @@ class Box
 public:
    void in(std::istream* source);  // read from *source
    
-   long count_collisions();  // count number of collisions
+   long count_collisions();  //count number of collisions
 
    int move_sphere(int number_of_coll); // move spheres
    
@@ -21,7 +21,7 @@ public:
 
    double get_extension(int axis) const;
 
-   void split_boxes(int number_of_boxes);
+   void split_boxes(int number_of_boxes); //Split the box into smaller ones for faster computation
    
 
    std::multimap<double, int, std::greater<int>> &get_components() {return this->components;};
@@ -32,7 +32,7 @@ private:
    double extension[3];  // size of the box
    std::multimap<double, int, std::greater<int>> components;  //  IDs (value) ordered by size (key)
    std::vector<std::vector<Sphere>> particles;  // maps each component ID to the spheres associated with that component
-   std::vector<small_Box> boxes;
+   std::vector<small_Box> boxes; 
    size_t N = 0;  // total number of particles
 };
 

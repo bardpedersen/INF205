@@ -111,11 +111,8 @@ int Box::move_sphere(int number_of_coll){
                partic->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
             }
 
-
-
-
-
-            
+            /////////used for debug
+            /*
             for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
                std::cout <<"box: " <<Comp->get_box_id() << ' ';
                std::vector<Sphere> &particle = Comp->get_particles();
@@ -124,7 +121,8 @@ int Box::move_sphere(int number_of_coll){
                }
             std::cout << "\n";
             }
-            
+            */
+
             for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
                for(auto box = partic->get_box_ID().begin(); box != partic->get_box_ID().end(); box++){
                   if(*box == box_in_box->get_box_id()){
@@ -145,12 +143,29 @@ int Box::move_sphere(int number_of_coll){
                   if(d %2 ==0){
                      a+=1;
                   }
+                  double sphere_minus_size = partic->get_coordinate(a) - partic->get_size()*0.5;
+                  double sphere_plus_size = partic->get_coordinate(a) + partic->get_size()*0.5;
 
-                  if(((box_in_box->get_extension(d) <= (partic->get_size()*0.5 + partic->get_coordinate(a))) && 
-                  ((partic->get_size()*0.5 + partic->get_coordinate(a)) <= box_in_box->get_extension(d+1)))||
-                  ((box_in_box->get_extension(d)<= (partic->get_coordinate(a) - partic->get_size() * 0.5)) && 
-                  ((partic->get_coordinate(a) - partic->get_size() * 0.5) <= box_in_box->get_extension(d+1)))){
+                  if(((box_in_box->get_extension(d) <= sphere_plus_size) && //coord_start <= particle
+                  (sphere_plus_size <= box_in_box->get_extension(d+1)))||  //particle <= coord_stop
+                  ((box_in_box->get_extension(d)<= sphere_minus_size) &&  //coord_start <= particle
+                  (sphere_minus_size <= box_in_box->get_extension(d+1)))){ //particle <= coord_stop
                      insert += 1;
+                  }
+                  else{
+                     if(sphere_minus_size < 0){
+                     sphere_minus_size += this->get_extension(a);
+                     }
+
+                     if(sphere_plus_size > this->get_extension(a)){
+                     sphere_plus_size -= this->get_extension(a);
+                     }
+                     if(((box_in_box->get_extension(d) <= sphere_plus_size) && //coord_start <= particle
+                        (sphere_plus_size <= box_in_box->get_extension(d+1)))||  //particle <= coord_stop
+                        ((box_in_box->get_extension(d)<= sphere_minus_size) &&  //coord_start <= particle
+                        (sphere_minus_size <= box_in_box->get_extension(d+1)))){ //particle <= coord_stop
+                     insert += 1;
+                     }
                   }
                }
                if(insert==3){
@@ -161,7 +176,8 @@ int Box::move_sphere(int number_of_coll){
             std::cout <<"\n";
 
             
-            /*debud
+            ///for debug
+            /*
             for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
                std::cout <<"box: " <<Comp->get_box_id() << ' ';
                std::vector<Sphere> &particle = Comp->get_particles();
@@ -171,6 +187,7 @@ int Box::move_sphere(int number_of_coll){
             std::cout << "\n";
             }
             */
+            
 
             int collisions_after = count_collisions();
             double probability_move  = exp(collision_before - collisions_after); // Number of collisions
@@ -187,10 +204,16 @@ int Box::move_sphere(int number_of_coll){
          }
       }
    }
+   ///for debug
+   /*
+   for(auto Comp = this->components.begin(); Comp != this->components.end(); Comp++){
+      for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
+         std::cout<<"particle id "<< partic->get_particle_id()<< " particle size "<< partic->get_size() << " partic cood" <<partic->get_coordinate(0)<<partic->get_coordinate(1)<<partic->get_coordinate(2)<<"\n";
+      }
+   }
+   */
    return collision_before;
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void Box::split_boxes(int number_of_boxes){
    double size_of_small_box[3];
@@ -243,14 +266,38 @@ void Box::split_boxes(int number_of_boxes){
          for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
             int insert = 0;
             int a = -1;
+
+            //find boxes.
             for(int d = 0; d < 5; d++){
                if(d %2 ==0){
                   a+=1;
                }
-               if(((coords_for_small_box[d] <= (partic->get_size()*0.5 + partic->get_coordinate(a))) && ((partic->get_size()*0.5 + partic->get_coordinate(a)) <= coords_for_small_box[d+1]))||
-               ((coords_for_small_box[d]<= (partic->get_coordinate(a) - partic->get_size() * 0.5)) && ((partic->get_coordinate(a) - partic->get_size() * 0.5) <= coords_for_small_box[d+1]))){
+
+               double sphere_minus_size = partic->get_coordinate(a) - partic->get_size()*0.5;
+               double sphere_plus_size = partic->get_coordinate(a) + partic->get_size()*0.5;
+
+               if(((coords_for_small_box[d] <= (sphere_plus_size)) && //coord_start <= particle
+               ((sphere_plus_size) <= coords_for_small_box[d+1]))||  //particle <= coord_stop
+               ((coords_for_small_box[d]<= (sphere_minus_size)) &&  //coord_start <= particle
+               ((sphere_minus_size) <= coords_for_small_box[d+1]))){ //particle <= coord_stop
                   insert += 1;
                }
+               else{
+                  if(sphere_minus_size < 0){
+                  sphere_minus_size += this->get_extension(a);
+                  }
+
+                  if(sphere_plus_size > this->get_extension(a)){
+                  sphere_plus_size -= this->get_extension(a);
+                  }
+                  if(((coords_for_small_box[d] <= sphere_plus_size) && //coord_start <= particle
+                     (sphere_plus_size <= coords_for_small_box[d+1]))||  //particle <= coord_stop
+                     ((coords_for_small_box[d]<= sphere_minus_size) &&  //coord_start <= particle
+                     (sphere_minus_size <= coords_for_small_box[d+1]))){ //particle <= coord_stop
+                  insert += 1;
+                  }
+               }
+
             }
             if(insert==3){
                partic->set_box_ID(i);
@@ -266,18 +313,6 @@ void Box::split_boxes(int number_of_boxes){
       this->boxes.push_back(small);
 
    }
-   
-   /*
-   for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
-      std::cout <<"box: " <<Comp->get_box_id() << ' ';
-      std::vector<Sphere> &particle = Comp->get_particles();
-      for (auto it = particle.begin(); it != particle.end(); it++){
-        std::cout <<"particle: " <<it->get_particle_id() << " ";
-      }
-   std::cout << "\n";
-   }
-   */
-   
 }  
 /*
 Needs a new function that splits box into 8, 27 or 64, the more boxes the faster butt more memory is used.
@@ -299,7 +334,5 @@ particles store witch box/boxes they are in. vector so we can add element on the
 
 only calculate colissions in the boxes that changes.
 
-
-missing pbc when moving sphere to new box.
 
 */

@@ -8,7 +8,6 @@
 #include <cassert>
 
 
-
 void small_Box::set_extension(int axis, double in_coord)
 {
    assert((axis == 0) || (axis == 1) || (axis == 2) || (axis == 3) || (axis == 4) || (axis ==5));
@@ -20,7 +19,6 @@ void small_Box::set_particles(Sphere &partic){
    this->N++;
 }
 
-
 void small_Box::remove_particles(size_t &partic_id){
    std::vector<Sphere> temp;
    for(auto part = this->particles.begin(); part != this->particles.end(); part++){
@@ -31,7 +29,6 @@ void small_Box::remove_particles(size_t &partic_id){
    this->particles = temp;
    this->N--;
 }
-
 
 void small_Box::set_box_id(size_t box_ID){
    this->box_id = box_ID;

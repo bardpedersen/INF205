@@ -59,10 +59,10 @@ long Box::count_collisions()
 {
    long overlaps = 0;
    
-   for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
-      if(Comp->get_particles().size() != 0){
-         for(auto partic_1 = Comp->get_particles().begin();  std::next(partic_1) != Comp->get_particles().end(); partic_1++){
-            for(auto partic_2 = std::next(partic_1); partic_2 != Comp->get_particles().end(); partic_2++){
+   for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
+      if(Small_box->get_particles().size() != 0){
+         for(auto partic_1 = Small_box->get_particles().begin();  std::next(partic_1) != Small_box->get_particles().end(); partic_1++){
+            for(auto partic_2 = std::next(partic_1); partic_2 != Small_box->get_particles().end(); partic_2++){
                overlaps += partic_1->check_collision(&(*partic_2), this->extension);
             }
          }
@@ -122,7 +122,8 @@ int Box::move_sphere(int number_of_coll){
             std::cout << "\n";
             }
             */
-
+            
+            //erase from old box
             for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
                for(auto box = partic->get_box_ID().begin(); box != partic->get_box_ID().end(); box++){
                   if(*box == box_in_box->get_box_id()){
@@ -134,7 +135,7 @@ int Box::move_sphere(int number_of_coll){
 
             partic->erase_box_ID(); 
 
-            //needs to move sphere from old to new box.
+            //assign to new box.
             for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
                int insert = 0;
                int a = -1;

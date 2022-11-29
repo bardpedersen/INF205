@@ -5,9 +5,7 @@ We can sort all spheres based on size, place the big ones first in cubes of sphe
 The Monty Carlo method :)
 
 
-Need to fix moving spheres with samller boxes.
-Need to fix calculation collosions with smaller boxes.
-Need to fix pbc box with smaller boxes.
+Need to fix collisons, if two spheres are in the same two boxes it wil count 2 collisions and not one
 
 Need to add comments
 nned to make code prettyer

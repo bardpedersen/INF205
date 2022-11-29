@@ -35,6 +35,16 @@ void Sphere::erase_box_ID()
    this->box_ID.clear();
 }
 
+void Sphere::set_particle_collided_with(int particleid)
+{
+   this->particle_collided_with.push_back(particleid);
+}
+
+void Sphere::erase_particle_collided_with()
+{  
+   this->particle_collided_with.clear();
+}
+
 // is there a collision between this sphere and another?
 //
 // by a collision here we mean a genuine overlap between spheres:

@@ -60,14 +60,37 @@ long Box::count_collisions()
    long overlaps = 0;
    
    for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
+
+      
+
+      /*
+      Need to check if two particles allready have been checked.
+      Lagre i vector?
+      if particle has more than one elemnt in vector of boxes
+      save witch particle it have collided with, and if that partic comes again dont calculate.
+      */
+
       if(Small_box->get_particles().size() != 0){
          for(auto partic_1 = Small_box->get_particles().begin();  std::next(partic_1) != Small_box->get_particles().end(); partic_1++){
             for(auto partic_2 = std::next(partic_1); partic_2 != Small_box->get_particles().end(); partic_2++){
-               overlaps += partic_1->check_collision(&(*partic_2), this->extension);
+               if(!(std::find(partic_1->get_particle_collided_with().begin(), partic_1->get_particle_collided_with().end(), partic_2->get_particle_id())!= partic_1->get_particle_collided_with().end())){
+                  overlaps += partic_1->check_collision(&(*partic_2), this->extension);
+                  partic_1->set_particle_collided_with(partic_2->get_particle_id());
+                  partic_2->set_particle_collided_with(partic_1->get_particle_id());
+               }
+               
             }
          }
       }
+      //set each particl collided with to zero
+      
+      if(Small_box->get_particles().size() != 0){
+         for(auto partic_1 = Small_box->get_particles().begin();  std::next(partic_1) != Small_box->get_particles().end(); partic_1++){ 
+            partic_1->erase_particle_collided_with();
+         }
+      }
    }
+
    return overlaps;
 }
 

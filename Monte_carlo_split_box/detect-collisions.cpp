@@ -27,10 +27,7 @@ int main(int argc, char** argv)
    double coord[size][3];
    int itteration = 0;
 
-   std::cout << "\n===\nCollisions: " << lowest_number_of_collisions << "\n===\n";
-
    for(int i = 0; i < 1000; i++){ //number of spheres to move
-      std::cout << "\n===\nCollisions: " << lowest_number_of_collisions <<" "<< itteration << "\n===\n";
 
       itteration++;
       int number_of_collisions = b.move_sphere(collisions_to_funct);

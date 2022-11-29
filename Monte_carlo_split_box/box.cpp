@@ -138,7 +138,6 @@ int Box::move_sphere(int number_of_coll){
             for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
                int insert = 0;
                int a = -1;
-               std::cout << " ";
                for(int d = 0; d < 5; d++){
                   if(d %2 ==0){
                      a+=1;
@@ -173,8 +172,6 @@ int Box::move_sphere(int number_of_coll){
                   box_in_box->set_particles(*partic); //set particle in small_box
                }
             }
-            std::cout <<"\n";
-
             
             ///for debug
             /*

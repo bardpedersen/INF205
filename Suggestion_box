@@ -5,7 +5,6 @@ We can sort all spheres based on size, place the big ones first in cubes of sphe
 The Monty Carlo method :)
 
 
-Need to fix collisons, if two spheres are in the same two boxes it wil count 2 collisions and not one
-
+Improve collisons
 Need to add comments
 nned to make code prettyer

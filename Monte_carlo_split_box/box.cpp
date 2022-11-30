@@ -54,42 +54,32 @@ std::istream& operator>>(std::istream& is, Box& b) {
 }
 
 // count the number of collisions between pairs of spheres
-//
 long Box::count_collisions()
 {
    long overlaps = 0;
-   
+   //////
+   //////Use the particle box.id, and if the particles have the same box id only count one.
+   //////
+
    for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
-
-      
-
-      /*
-      Need to check if two particles allready have been checked.
-      Lagre i vector?
-      if particle has more than one elemnt in vector of boxes
-      save witch particle it have collided with, and if that partic comes again dont calculate.
-      */
-
-      if(Small_box->get_particles().size() != 0){
+      if(Small_box->get_particles().size() > 1){
          for(auto partic_1 = Small_box->get_particles().begin();  std::next(partic_1) != Small_box->get_particles().end(); partic_1++){
             for(auto partic_2 = std::next(partic_1); partic_2 != Small_box->get_particles().end(); partic_2++){
-               if(!(std::find(partic_1->get_particle_collided_with().begin(), partic_1->get_particle_collided_with().end(), partic_2->get_particle_id())!= partic_1->get_particle_collided_with().end())){
-                  overlaps += partic_1->check_collision(&(*partic_2), this->extension);
-                  partic_1->set_particle_collided_with(partic_2->get_particle_id());
-                  partic_2->set_particle_collided_with(partic_1->get_particle_id());
-               }
-               
+               overlaps += partic_1->check_collision(&(*partic_2), this->extension);
             }
          }
       }
-      //set each particl collided with to zero
-      
-      if(Small_box->get_particles().size() != 0){
-         for(auto partic_1 = Small_box->get_particles().begin();  std::next(partic_1) != Small_box->get_particles().end(); partic_1++){ 
+   }
+   
+   for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
+      if(Small_box->get_particles().size() > 1){
+         for(auto partic_1 = Small_box->get_particles().begin(); partic_1 != Small_box->get_particles().end(); partic_1++){
             partic_1->erase_particle_collided_with();
          }
       }
    }
+   
+   
 
    return overlaps;
 }
@@ -135,7 +125,7 @@ int Box::move_sphere(int number_of_coll){
             }
 
             /////////used for debug
-            /*
+            
             for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
                std::cout <<"box: " <<Comp->get_box_id() << ' ';
                std::vector<Sphere> &particle = Comp->get_particles();
@@ -144,7 +134,7 @@ int Box::move_sphere(int number_of_coll){
                }
             std::cout << "\n";
             }
-            */
+            
             
             //erase from old box
             for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
@@ -198,7 +188,7 @@ int Box::move_sphere(int number_of_coll){
             }
             
             ///for debug
-            /*
+            
             for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
                std::cout <<"box: " <<Comp->get_box_id() << ' ';
                std::vector<Sphere> &particle = Comp->get_particles();
@@ -207,7 +197,7 @@ int Box::move_sphere(int number_of_coll){
                }
             std::cout << "\n";
             }
-            */
+            
             
 
             int collisions_after = count_collisions();

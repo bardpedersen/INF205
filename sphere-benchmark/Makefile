@@ -1,5 +1,5 @@
 run: evaluate-confguration generator
-	./generator 10536
+	./generator 10000
 	./evaluate-confguration benchmark-configuration.dat
 
 generator: generator.o sphere.o box.o

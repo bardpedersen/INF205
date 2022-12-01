@@ -35,10 +35,6 @@ void Sphere::erase_box_ID()
    this->box_ID.clear();
 }
 
-void Sphere::set_particle_collided_with(int particid)
-{
-   this->particle_collided_with.push_back(particid);
-}
 
 void Sphere::erase_particle_collided_with()
 {  
@@ -54,16 +50,22 @@ void Sphere::erase_particle_collided_with()
 //
 int Sphere::check_collision(Sphere* other, const double box_size[3])
 {
+   std::cout << &(*this) << "\n";
+   std::cout << &(*other) << "\n";
+
    int overlap = 0;
-   std::cout << this->particle_id << " " << this->particle_collided_with.size() << "what "<< other->particle_id <<"\n";
+   
+   
    if(this->particle_collided_with.size() > 0){
-      for(int elemnt = *this->particle_collided_with.begin(); elemnt != *this->particle_collided_with.end(); elemnt++){
-         if(elemnt == other->particle_id){
+      for(auto elemnt = this->particle_collided_with.begin(); elemnt != this->particle_collided_with.end(); elemnt++){
+         if(*elemnt == other->particle_id){
             std::cout<<" likt \n";
             return overlap;
          }
       }
    }
+   
+   
 
    double square_distance = 0.0;
    for(int d = 0; d < 3; d++)
@@ -82,13 +84,17 @@ int Sphere::check_collision(Sphere* other, const double box_size[3])
    if(square_distance < 0.25*sum_of_radii*sum_of_radii) overlap = 8;  // soft shielding
    else if(square_distance < sum_of_radii*sum_of_radii) overlap = 1;  // normal overlap
 
+
    /// only return this when collison
+
    this->particle_collided_with.push_back(other->particle_id);
    other->particle_collided_with.push_back(this->particle_id);
 
-   /*
+
+   /* 
    Save collisons in vector
    if they have collided before return 0
    */
+   std::cout<< "------------------";
    return overlap;
 }

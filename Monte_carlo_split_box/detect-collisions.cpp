@@ -4,22 +4,26 @@
 #include <vector>
 
 #include "box.h"
+#include "small_box.h"
 #include "sphere.h"
+
 
 int main(int argc, char** argv)
 {
    assert(argc > 1);
-   
+   std::cout << "main";
    Box b;
    std::ifstream file_in{argv[1]};
    file_in >> b;
    file_in.close();
    b.split_boxes(2);  //number of boxes in qube and initelize smaller boxes
-
+   std::cout <<"done split box";
    std::multimap<double, int, std::greater<int>> &compon = b.get_components();
    std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
 
+   std::cout << "collision start";
    int collosions_start = b.count_collisions();
+   std::cout <<"done count collis";
    int lowest_number_of_collisions = collosions_start;
    int collisions_to_funct = collosions_start;
 
@@ -27,7 +31,7 @@ int main(int argc, char** argv)
    double coord[size][3];
    int itteration = 0;
 
-   for(int i = 0; i < 100; i++){ //number of spheres to move
+   for(int i = 0; i < 2; i++){ //number of spheres to move
       itteration++;
       int number_of_collisions = b.move_sphere(collisions_to_funct);
 

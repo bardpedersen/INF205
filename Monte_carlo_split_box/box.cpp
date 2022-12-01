@@ -60,27 +60,37 @@ long Box::count_collisions()
    //////
    //////Use the particle box.id, and if the particles have the same box id only count one.
    //////
-
+   
    for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
       if(Small_box->get_particles().size() > 1){
          for(auto partic_1 = Small_box->get_particles().begin();  std::next(partic_1) != Small_box->get_particles().end(); partic_1++){
             for(auto partic_2 = std::next(partic_1); partic_2 != Small_box->get_particles().end(); partic_2++){
-               overlaps += partic_1->check_collision(&(*partic_2), this->extension);
+               Sphere * par1 = *partic_1;
+               Sphere * par2 = *partic_2;
+               std::cout << par1->get_particle_id();
+               std::cout << par2->get_particle_id();
+               std::cout<<"/////////////////////////\n";
+               overlaps += par1->check_collision(&(*par2), this->extension);
+               std::cout << "/////////////////////////\n";
             }
          }
       }
    }
+   std::cout << " def need help \n";
+
    
    for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
+      std::cout <<"here";
       if(Small_box->get_particles().size() > 1){
          for(auto partic_1 = Small_box->get_particles().begin(); partic_1 != Small_box->get_particles().end(); partic_1++){
-            partic_1->erase_particle_collided_with();
+            Sphere * par1 = *partic_1;
+            par1->erase_particle_collided_with();
+            std::cout << "to we get here";
          }
       }
    }
    
-   
-
+   std::cout << "ok and";
    return overlaps;
 }
 
@@ -128,8 +138,8 @@ int Box::move_sphere(int number_of_coll){
             
             for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
                std::cout <<"box: " <<Comp->get_box_id() << ' ';
-               std::vector<Sphere> &particle = Comp->get_particles();
-               for (auto it = particle.begin(); it != particle.end(); it++){
+               std::vector<Sphere*> &particle = Comp->get_particles();
+               for (auto it = *particle.begin(); it != *particle.end(); it++){
                std::cout <<"particle: " <<it->get_particle_id() << " ";
                }
             std::cout << "\n";
@@ -191,8 +201,8 @@ int Box::move_sphere(int number_of_coll){
             
             for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
                std::cout <<"box: " <<Comp->get_box_id() << ' ';
-               std::vector<Sphere> &particle = Comp->get_particles();
-               for (auto it = particle.begin(); it != particle.end(); it++){
+               std::vector<Sphere*> &particle = Comp->get_particles();
+               for (auto it = *particle.begin(); it != *particle.end(); it++){
                std::cout <<"particle: " <<it->get_particle_id() << " ";
                }
             std::cout << "\n";
@@ -272,8 +282,10 @@ void Box::split_boxes(int number_of_boxes){
       }
       //set id for small box
       small.set_box_id(i);
-      
+
+      int j =0;
       for(auto Comp = this->components.begin(); Comp != this->components.end(); Comp++){
+         int i = 0;
          for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
             int insert = 0;
             int a = -1;
@@ -312,10 +324,13 @@ void Box::split_boxes(int number_of_boxes){
             }
             if(insert==3){
                partic->set_box_ID(i);
-               small.set_particles(*partic); //set particle in small_box
+               small.set_particles(*partic); //vector<int>& vecRef = *vecPtr //set particle in small_box //index thru vector from large box.
             }
+            i++;
          }
+         j++;
       }
+      
       
       coords_for_small_box[0] += size_of_small_box[0];
       coords_for_small_box[1] += size_of_small_box[0];

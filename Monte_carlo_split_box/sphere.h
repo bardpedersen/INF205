@@ -27,8 +27,6 @@ public:
    void erase_box_ID();
 
    void erase_particle_collided_with();
-
-   void set_particle_collided_with(int particid);
    
    std::vector<int> &get_particle_collided_with() { return this->particle_collided_with; }
    
@@ -40,11 +38,12 @@ public:
 
 private:
 
-   int particle_id = 0;
-   double size = 0.0;
-   double coords[3] = {0.0, 0.0, 0.0};
+   int particle_id;
+   double size;
+   double coords[3];
    std::vector<int> box_ID;
    std::vector<int> particle_collided_with;
 };
+
 
 #endif

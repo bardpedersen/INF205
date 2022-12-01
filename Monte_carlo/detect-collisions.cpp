@@ -30,7 +30,7 @@ int main(int argc, char** argv)
    int collosions_start = b.count_collisions();
    int lowest_number_of_collisions = collosions_start;
    int collisions_to_funct = collosions_start;
-   int size = b.get_N();
+   const int size = b.get_N();
 
    double coord[size][3];
    int itteration = 0;

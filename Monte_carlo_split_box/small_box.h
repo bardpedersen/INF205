@@ -18,12 +18,12 @@ public:
    double get_extension(int axis) const;
    int get_N() const { return this->N;}
    int get_box_id() const { return this->box_id;}
-   std::vector<Sphere> &get_particles() {return this->particles;}
+   std::vector<Sphere*> &get_particles() {return this->particles;}
 
 
 private:
    double extension[6];  // size of the box (x_start, x_stop, y_start, y_stop, z_start, z_stop)
-   std::vector<Sphere> particles;  // maps each component ID to the spheres associated with that component
+   std::vector<Sphere*> particles;  // maps each component ID to the spheres associated with that component
    size_t N = 0;  // total number of particles
    int box_id = 0; //box id 
 };

@@ -19,15 +19,15 @@ void small_Box::set_particles(Sphere &partic){
    this->N++;
 }
 
-void small_Box::remove_particles(size_t &partic_id){
-   std::vector<Sphere*> temp;
-   for(auto part = *this->particles.begin(); part != *this->particles.end(); part++){
-      if(partic_id != part->get_particle_id()){
-         temp.push_back(*(&part));
-      }
-   }
-   this->particles = temp;
+void small_Box::remove_particles(Sphere &partic){
+   ////////////////////////////////////////////////////////////////////////////////
+
+    auto it = std::find(this->particles.begin(), this->particles.end(), &partic);;
+    if (it != this->particles.end()) { this->particles.erase(it);}
    this->N--;
+
+   // remove in a differnet way, 
+   ////////////////////////////////////////////////////////////////////////////////
 }
 
 void small_Box::set_box_id(size_t box_ID){

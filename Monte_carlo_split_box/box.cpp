@@ -60,37 +60,28 @@ long Box::count_collisions()
    //////
    //////Use the particle box.id, and if the particles have the same box id only count one.
    //////
-   
+   int i = 0;
    for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
       if(Small_box->get_particles().size() > 1){
          for(auto partic_1 = Small_box->get_particles().begin();  std::next(partic_1) != Small_box->get_particles().end(); partic_1++){
             for(auto partic_2 = std::next(partic_1); partic_2 != Small_box->get_particles().end(); partic_2++){
                Sphere * par1 = *partic_1;
                Sphere * par2 = *partic_2;
-               std::cout << par1->get_particle_id();
-               std::cout << par2->get_particle_id();
-               std::cout<<"/////////////////////////\n";
                overlaps += par1->check_collision(&(*par2), this->extension);
-               std::cout << "/////////////////////////\n";
             }
          }
       }
    }
-   std::cout << " def need help \n";
-
    
    for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
-      std::cout <<"here";
       if(Small_box->get_particles().size() > 1){
          for(auto partic_1 = Small_box->get_particles().begin(); partic_1 != Small_box->get_particles().end(); partic_1++){
             Sphere * par1 = *partic_1;
             par1->erase_particle_collided_with();
-            std::cout << "to we get here";
          }
       }
    }
    
-   std::cout << "ok and";
    return overlaps;
 }
 
@@ -118,6 +109,7 @@ int Box::move_sphere(int number_of_coll){
          if(random_sphere_from_list == partic->get_particle_id()){
             double temp_coord[3];
 
+
             for(int d = 0; d < 3; d++)
             {
                temp_coord[d] = partic->get_coordinate(d);
@@ -131,30 +123,26 @@ int Box::move_sphere(int number_of_coll){
                while((new_coords[d]) < 0.0) new_coords[d] += new_coords[d] ; //if pbc is true / increese with this->extension[d], got a case where box is 4**3 and sphere size is 2 and start in positsion (1,1,1) 
                while((new_coords[d]) > this->extension[d]) new_coords[d] -= new_coords[d]; 
 
-               partic->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
+               partic->set_coordinate(d, new_coords[d]);
             }
 
-            /////////used for debug
-            
-            for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
-               std::cout <<"box: " <<Comp->get_box_id() << ' ';
-               std::vector<Sphere*> &particle = Comp->get_particles();
-               for (auto it = *particle.begin(); it != *particle.end(); it++){
-               std::cout <<"particle: " <<it->get_particle_id() << " ";
-               }
-            std::cout << "\n";
-            }
-            
-            
             //erase from old box
             for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
                for(auto box = partic->get_box_ID().begin(); box != partic->get_box_ID().end(); box++){
                   if(*box == box_in_box->get_box_id()){
-                     size_t part_id = partic->get_particle_id();
-                     box_in_box->remove_particles(part_id);
+                     box_in_box->remove_particles(*partic);
                   }
                }
             }
+
+            /*
+            for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
+               std::cout <<"box: " <<Comp->get_box_id() << ' ';
+               std::vector<Sphere*> &particle = Comp->get_particles();
+               std::cout << Comp->get_particles().size() << " ";
+            std::cout << "\n";
+            }
+            */
 
             partic->erase_box_ID(); 
 
@@ -162,33 +150,26 @@ int Box::move_sphere(int number_of_coll){
             for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
                int insert = 0;
                int a = -1;
-               for(int d = 0; d < 5; d++){
+               for(int d = 0; d < 5; d+=2){
                   if(d %2 ==0){
                      a+=1;
                   }
                   double sphere_minus_size = partic->get_coordinate(a) - partic->get_size()*0.5;
                   double sphere_plus_size = partic->get_coordinate(a) + partic->get_size()*0.5;
 
+                  if(sphere_minus_size < 0){
+                     sphere_minus_size += this->get_extension(a);
+                     }
+
+                  if(sphere_plus_size > this->get_extension(a)){
+                     sphere_plus_size -= this->get_extension(a);
+                     }
+
                   if(((box_in_box->get_extension(d) <= sphere_plus_size) && //coord_start <= particle
                   (sphere_plus_size <= box_in_box->get_extension(d+1)))||  //particle <= coord_stop
                   ((box_in_box->get_extension(d)<= sphere_minus_size) &&  //coord_start <= particle
                   (sphere_minus_size <= box_in_box->get_extension(d+1)))){ //particle <= coord_stop
                      insert += 1;
-                  }
-                  else{
-                     if(sphere_minus_size < 0){
-                     sphere_minus_size += this->get_extension(a);
-                     }
-
-                     if(sphere_plus_size > this->get_extension(a)){
-                     sphere_plus_size -= this->get_extension(a);
-                     }
-                     if(((box_in_box->get_extension(d) <= sphere_plus_size) && //coord_start <= particle
-                        (sphere_plus_size <= box_in_box->get_extension(d+1)))||  //particle <= coord_stop
-                        ((box_in_box->get_extension(d)<= sphere_minus_size) &&  //coord_start <= particle
-                        (sphere_minus_size <= box_in_box->get_extension(d+1)))){ //particle <= coord_stop
-                     insert += 1;
-                     }
                   }
                }
                if(insert==3){
@@ -198,15 +179,17 @@ int Box::move_sphere(int number_of_coll){
             }
             
             ///for debug
-            
+            /*
             for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
                std::cout <<"box: " <<Comp->get_box_id() << ' ';
                std::vector<Sphere*> &particle = Comp->get_particles();
-               for (auto it = *particle.begin(); it != *particle.end(); it++){
-               std::cout <<"particle: " <<it->get_particle_id() << " ";
+               for (auto it = particle.begin(); it != particle.end(); it++){
+                  Sphere * ite = *it;
+                  std::cout <<"particle: " <<ite->get_particle_id() << " ";
                }
-            std::cout << "\n";
+            std::cout <<"\n";
             }
+            */
             
             
 
@@ -217,6 +200,47 @@ int Box::move_sphere(int number_of_coll){
             if(probability_move < random/100) {
                for(int d = 0; d < 3; d++){
                   partic->set_coordinate(d, temp_coord[d]);
+                  //erase from old box
+                  for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
+                     for(auto box = partic->get_box_ID().begin(); box != partic->get_box_ID().end(); box++){
+                        if(*box == box_in_box->get_box_id()){
+                           box_in_box->remove_particles(*partic);
+                        }
+                     }
+                  }
+                  partic->erase_box_ID(); 
+
+                  //assign to new box.
+                  for(auto box_in_box = this->boxes.begin(); box_in_box != this->boxes.end(); box_in_box++){
+                     int insert = 0;
+                     int a = -1;
+                     for(int d = 0; d < 5; d+=2){
+                        if(d %2 ==0){
+                           a+=1;
+                        }
+                        double sphere_minus_size = partic->get_coordinate(a) - partic->get_size()*0.5;
+                        double sphere_plus_size = partic->get_coordinate(a) + partic->get_size()*0.5;
+
+                        if(sphere_minus_size < 0){
+                           sphere_minus_size += this->get_extension(a);
+                           }
+
+                        if(sphere_plus_size > this->get_extension(a)){
+                           sphere_plus_size -= this->get_extension(a);
+                           }
+
+                        if(((box_in_box->get_extension(d) <= sphere_plus_size) && //coord_start <= particle
+                        (sphere_plus_size <= box_in_box->get_extension(d+1)))||  //particle <= coord_stop
+                        ((box_in_box->get_extension(d)<= sphere_minus_size) &&  //coord_start <= particle
+                        (sphere_minus_size <= box_in_box->get_extension(d+1)))){ //particle <= coord_stop
+                           insert += 1;
+                        }
+                     }
+                     if(insert==3){
+                        partic->set_box_ID(box_in_box->get_box_id());
+                        box_in_box->set_particles(*partic); //set particle in small_box
+                     }
+                  }
                }
             }
             else{
@@ -225,14 +249,6 @@ int Box::move_sphere(int number_of_coll){
          }
       }
    }
-   ///for debug
-   /*
-   for(auto Comp = this->components.begin(); Comp != this->components.end(); Comp++){
-      for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
-         std::cout<<"particle id "<< partic->get_particle_id()<< " particle size "<< partic->get_size() << " partic cood" <<partic->get_coordinate(0)<<partic->get_coordinate(1)<<partic->get_coordinate(2)<<"\n";
-      }
-   }
-   */
    return collision_before;
 }
 
@@ -283,42 +299,34 @@ void Box::split_boxes(int number_of_boxes){
       //set id for small box
       small.set_box_id(i);
 
-      int j =0;
       for(auto Comp = this->components.begin(); Comp != this->components.end(); Comp++){
-         int i = 0;
          for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
             int insert = 0;
             int a = -1;
 
             //find boxes.
-            for(int d = 0; d < 5; d++){
+            for(int d = 0; d < 5; d+=2){
                if(d %2 ==0){
                   a+=1;
                }
-
                double sphere_minus_size = partic->get_coordinate(a) - partic->get_size()*0.5;
                double sphere_plus_size = partic->get_coordinate(a) + partic->get_size()*0.5;
 
-               if(((coords_for_small_box[d] <= (sphere_plus_size)) && //coord_start <= particle
-               ((sphere_plus_size) <= coords_for_small_box[d+1]))||  //particle <= coord_stop
-               ((coords_for_small_box[d]<= (sphere_minus_size)) &&  //coord_start <= particle
-               ((sphere_minus_size) <= coords_for_small_box[d+1]))){ //particle <= coord_stop
-                  insert += 1;
+               
+               if(sphere_minus_size < 0){
+               sphere_minus_size += this->get_extension(a);
                }
-               else{
-                  if(sphere_minus_size < 0){
-                  sphere_minus_size += this->get_extension(a);
-                  }
 
-                  if(sphere_plus_size > this->get_extension(a)){
-                  sphere_plus_size -= this->get_extension(a);
-                  }
-                  if(((coords_for_small_box[d] <= sphere_plus_size) && //coord_start <= particle
-                     (sphere_plus_size <= coords_for_small_box[d+1]))||  //particle <= coord_stop
-                     ((coords_for_small_box[d]<= sphere_minus_size) &&  //coord_start <= particle
-                     (sphere_minus_size <= coords_for_small_box[d+1]))){ //particle <= coord_stop
-                  insert += 1;
-                  }
+               if(sphere_plus_size > this->get_extension(a)){
+               sphere_plus_size -= this->get_extension(a);
+               }
+               
+
+               if(((coords_for_small_box[d] <= sphere_plus_size) && //coord_start <= particle
+                  (sphere_plus_size <= coords_for_small_box[d+1]))||  //particle <= coord_stop
+                  ((coords_for_small_box[d]<= sphere_minus_size) &&  //coord_start <= particle
+                  (sphere_minus_size <= coords_for_small_box[d+1]))){ //particle <= coord_stop
+               insert += 1;
                }
 
             }
@@ -326,39 +334,27 @@ void Box::split_boxes(int number_of_boxes){
                partic->set_box_ID(i);
                small.set_particles(*partic); //vector<int>& vecRef = *vecPtr //set particle in small_box //index thru vector from large box.
             }
-            i++;
          }
-         j++;
       }
       
       
       coords_for_small_box[0] += size_of_small_box[0];
       coords_for_small_box[1] += size_of_small_box[0];
-
       //ad small box to vector
       this->boxes.push_back(small);
 
    }
+   
+   /*
+   for(auto Comp = this->boxes.begin(); Comp != this->boxes.end(); Comp++){
+      std::cout <<"box: " <<Comp->get_box_id() << ' ';
+      std::vector<Sphere*> &particle = Comp->get_particles();
+      for (auto it = particle.begin(); it != particle.end(); it++){
+         Sphere * ite = *it;
+         std::cout <<"particle: " <<ite->get_particle_id() << " ";
+      }
+      std::cout <<"\n";
+   }
+   */
+   
 }  
-/*
-Needs a new function that splits box into 8, 27 or 64, the more boxes the faster butt more memory is used.
-Then it only needs to check the collosions in these boxes. This wil limit the amout of calculations. Can aslo use
-mpi to run multiple boxes at the same time.
-
-
-create new struct with small boxes
-
-each box needs start coords and end coords in all 3 directions
-also needs each particle that is in that box.
-total number of particles 
-
-
-
-functions that add and remove particles
-
-particles store witch box/boxes they are in. vector so we can add element on the go. min 1, max all boxes at once.
-
-only calculate colissions in the boxes that changes.
-
-
-*/

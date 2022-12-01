@@ -11,29 +11,26 @@
 int main(int argc, char** argv)
 {
    assert(argc > 1);
-   std::cout << "main";
-   Box b;
+   Box large_box;
    std::ifstream file_in{argv[1]};
-   file_in >> b;
+   file_in >> large_box;
    file_in.close();
-   b.split_boxes(2);  //number of boxes in qube and initelize smaller boxes
-   std::cout <<"done split box";
-   std::multimap<double, int, std::greater<int>> &compon = b.get_components();
-   std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
+   large_box.split_boxes(2);  //number of boxes in qube and initelize smaller boxes
 
-   std::cout << "collision start";
-   int collosions_start = b.count_collisions();
-   std::cout <<"done count collis";
+   std::multimap<double, int, std::greater<int>> &compon = large_box.get_components(); //passes by adress
+   std::vector<std::vector<Sphere>> &particle = large_box.get_particles(); 
+
+   int collosions_start = large_box.count_collisions();
    int lowest_number_of_collisions = collosions_start;
    int collisions_to_funct = collosions_start;
 
-   int size = b.get_N();
+   int size = large_box.get_N();
    double coord[size][3];
    int itteration = 0;
 
-   for(int i = 0; i < 2; i++){ //number of spheres to move
+   for(int i = 0; i < 1000; i++){ //number of spheres to move
       itteration++;
-      int number_of_collisions = b.move_sphere(collisions_to_funct);
+      int number_of_collisions = large_box.move_sphere(collisions_to_funct);
 
       if(number_of_collisions < lowest_number_of_collisions){ //check if the collosions have lower and if, we save the coordinates.
 
@@ -62,13 +59,12 @@ int main(int argc, char** argv)
                
          for(int c = 0; c < 3; c++){
             partic->set_coordinate(c, coord[particle_number][c]);
-            //std::cout <<coord[particle_number][c] << "";
          }
-         //std::cout <<" "<< partic->get_size();
-         //std::cout << "\n";
       }
    }
    std::cout << "\n===\nCollisions before: " << collosions_start << "\n";
-   std::cout << "\n===\nCollisions after: " << lowest_number_of_collisions << "\n";
-   std::cout << "===\nNumber of itterations: " << itteration << "\n";
+   std::cout << "Collisions after: " << lowest_number_of_collisions << "\n";
+   std::cout << "Number of itterations: " << itteration << "\n===\n";
+
+   /*Wrong number of collisons, need to fix*/
 }

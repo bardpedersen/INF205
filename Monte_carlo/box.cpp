@@ -125,5 +125,5 @@ int Box::move_sphere(int number_of_coll){
          }
       }
    }
-   return collisions_after;
+   return collision_before;
 }

@@ -19,6 +19,7 @@ int main(int argc, char** argv)
    std::multimap<double, int, std::greater<int>> &compon = b.get_components();
    std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
 
+   int collions_to_print_Start = b.count_collisions_all_spheres();
    int collosions_start = b.count_collisions();
    int lowest_number_of_collisions = collosions_start;
    int collisions_to_funct = collosions_start;
@@ -64,7 +65,10 @@ int main(int argc, char** argv)
          //std::cout << "\n";
       }
    }
-   std::cout << "\n===\nCollisions before: " << collosions_start << "\n";
-   std::cout << "\n===\nCollisions after: " << lowest_number_of_collisions << "\n";
+
+   int collions_to_print_end = b.count_collisions_all_spheres();
+   
+   std::cout << "\n===\nCollisions before: " << collions_to_print_Start << "\n";
+   std::cout << "\n===\nCollisions after: " << collions_to_print_end << "\n";
    std::cout << "===\nNumber of itterations: " << itteration << "\n";
 }

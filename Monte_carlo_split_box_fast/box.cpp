@@ -53,6 +53,29 @@ std::istream& operator>>(std::istream& is, Box& b) {
    return is;
 }
 
+
+long Box::count_collisions_all_spheres()
+{
+   long overlaps = 0;
+   
+   // iterate over pairs of components A and B
+   for(auto A = this->components.begin(); A != this->components.end(); A++)
+      for(auto B = A; B != this->components.end(); B++)
+      {
+         if(A->second == B->second)  // same component: iterate over pairs of particles i and j
+            for(auto i = this->particles[A->second].begin(); std::next(i) != this->particles[A->second].end(); i++)
+               for(auto j = std::next(i); j != this->particles[B->second].end(); j++)
+                  overlaps += i->check_collision(&(*j), this->extension);
+
+         else  // different components: iterate over pairs of particles i and j
+            for(auto i = this->particles[A->second].begin(); i != this->particles[A->second].end(); i++)
+               for(auto j = this->particles[B->second].begin(); j != this->particles[B->second].end(); j++)
+                  overlaps += i->check_collision(&(*j), this->extension);
+      }
+   return overlaps;
+}
+
+
 // count the number of collisions between pairs of spheres
 long Box::count_collisions()
 {

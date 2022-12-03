@@ -22,6 +22,8 @@ public:
    double get_extension(int axis) const;
 
    void split_boxes(int number_of_boxes); //Split the box into smaller ones for faster computation
+
+   long count_collisions_all_spheres();
    
 
    std::multimap<double, int, std::greater<int> > &get_components() {return this->components;};

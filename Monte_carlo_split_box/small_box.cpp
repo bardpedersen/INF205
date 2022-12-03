@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
-
+#include <algorithm>
 
 void small_Box::set_extension(int axis, double in_coord)
 {
@@ -22,7 +22,7 @@ void small_Box::set_particles(Sphere &partic){
 void small_Box::remove_particles(Sphere &partic){
    ////////////////////////////////////////////////////////////////////////////////
 
-    auto it = std::find(this->particles.begin(), this->particles.end(), &partic);;
+    auto it = std::find(this->particles.begin(), this->particles.end(), &partic);
     if (it != this->particles.end()) { this->particles.erase(it);}
    this->N--;
 

@@ -21,7 +21,7 @@ int main(int argc, char** argv)
    long N = std::atol(argv[1]);
    std::cout << "particle number N:\t" << N << "\n";
    
-   double pfract = 7.0/9.0;
+   double pfract = 1.0/10.0;
    if(argc >= 3) pfract = std::atof(argv[2]);
    std::cout << "packing fraction:\t" << pfract << "\n";
    
@@ -29,7 +29,7 @@ int main(int argc, char** argv)
    if(argc >= 4) ofname = argv[3];
    std::cout << "output file name:\t" << ofname << "\n";
    
-   double max_ratio = 10.0/3.0;
+   double max_ratio = 3.0/3.0;
    if(argc >= 5) max_ratio = std::atof(argv[4]);
    std::cout << "max. size ratio:\t" << max_ratio << "\n";
 

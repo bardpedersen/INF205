@@ -13,12 +13,15 @@ The code should be efficient and reduce the number of collisions to zero if poss
 To solve the task, we choose to go with the [Monte Carlo algorithm](https://en.wikipedia.org/wiki/Monte_Carlo_method). This algorithm works by picking one random sphere and moving it to a random location, then checking if that is an improvement or not. If not then we discard that move, if it does improve we keep that move. Then we do this a hundred times.
 
 
+The time-consuming part of the code is to calculate all the collisions between all the spheres. So if we can implement a method to only calculate the collisions between spheres that are close to each other it would be much faster. We have a few options to solve this.
+A uniform grid partition is when we split the box into equal size smaller boxes, and then assign the spheres to the boxes they are in. Spheres can be in multiple boxes at once. And then calculate collisions in each box and add them all up.
 
-Uniform grid partition
+The sweep and Prune Algorithm is when we go along an axis, for example, the x-axis, and calculate collision between spheres that are within each other x-values. This can be done with multiple axes to get even fewer calculations. 
 
-Sweep and Prune Algorithm
+ KD Trees are when we choose one axis and split the box by the median of the number of spheres. We do this the same on a different axis. And repeat that until we meet our condition. This can either be the number of splits or max number of spheres in one cell.
 
- KD Trees
+A great video we used to understand theese concept better can be found [here](https://www.youtube.com/watch?v=eED4bSkYCB8).
+
 
 
 
@@ -38,11 +41,6 @@ If we iterate thru and the number of collisions comes to zero, we break the loop
 This works the same as the Monte_carlo directory, but here we have implemented a way to split the box into smaller boxes. The  Monte_carlo code works, but it is slow, so we needed to find a way to make it more efficient. We implemented a uniform grid partition. When we implemented this we noticed that the code was faster but had a higher amount of collisions than the Monte_carlo. This is because if two spheres are in the same two boxes it will count as two collisions instead of one. So to solve this we added a list to each sphere with the id of which paricle it has collided with. So each time we calculate collisions now we go thru the particle list of previous collisions and check if those particles have collided before. 
 
 Instead of improving the code, this made it even slower.
-
-
-
-implement pictures
-
 
 
 ### Monte_carlo_split_box_fast
@@ -68,6 +66,7 @@ Collisions started with: 7522
 |Monte_carlo| 1m 44,252s    | 7393 |
 |Monte_carlo_split_box| 13m 55,505s     | 7393  | 
 |Monte_carlo_split_box_fast| 0m 10,990s   | 7411 | 
+
 
 With 10'000 spheres and 10'000 itterations
 Collisions started with: 7522

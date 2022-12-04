@@ -85,7 +85,7 @@ A 2010 MacBook pro, with 10GB memory.
 |File        |Time           | Collisions after  |
 |:---:|:-------------:|:-------------:|
 |Monte_carlo| 20m 32,638s   | 6837 |
-|Monte_carlo_split_box| ---     | ---  | 
+|Monte_carlo_split_box| 134m 53,192s     | 6837  | 
 |Monte_carlo_split_box_fast| 1m 3,433s | 6915 | 
 
 10'000 itterations

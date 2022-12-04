@@ -101,6 +101,8 @@ As we can see the monte_carlo_split_box_fast is the best-performing one. It does
 We can use the 1'000 and 10'000 iterations as an example. We see that monte_carlo_split_box_fast was faster on the 10'000 than the monte_carlo on the 1'000 and it has a lower amount of collisions.
 
 
+![Image](https://github.com/ErikTrier/INF205/blob/bard/plotting/timeplot.pdf)
+
 ## Acknowledgements
 Our code is built upon Martin Thomas Horsch code handed out in class.
 

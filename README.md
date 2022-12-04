@@ -66,8 +66,8 @@ A 2010 MacBook pro, with 10GB memory.
 
 |File        |Time           | Collisions after  |
 |:---:|:-------------:|:-------------:|
-|Monte_carlo| --   | --- |
-|Monte_carlo_split_box| ----     | ---  | 
+|Monte_carlo| 0m 13,795   | 7520 |
+|Monte_carlo_split_box| 1m 25,854s     | 7520  | 
 |Monte_carlo_split_box_fast| 0m 7,216s   | 7520 | 
 
 
@@ -84,9 +84,9 @@ A 2010 MacBook pro, with 10GB memory.
 
 |File        |Time           | Collisions after  |
 |:---:|:-------------:|:-------------:|
-|Monte_carlo| ---   | --- |
+|Monte_carlo| 20m 32,638s   | 6837 |
 |Monte_carlo_split_box| ---     | ---  | 
-|Monte_carlo_split_box_fast|--  | -- | 
+|Monte_carlo_split_box_fast| 1m 3,433s | 6915 | 
 
 10'000 itterations
 
@@ -95,6 +95,11 @@ A 2010 MacBook pro, with 10GB memory.
 |Monte_carlo| 158m 20,761s    | 6112 |
 |Monte_carlo_split_box| ---    | ---  | 
 |Monte_carlo_split_box_fast| 8m 14,070s  | 6391 |
+
+
+As we can see the monte_carlo_split_box_fast is the best-performing one. It does have more collisions when done, but with the time it saves, it can run thru more iterations and then with the same amount of time it will have a lot fewer collisions. 
+We can use the 1'000 and 10'000 iterations as an example. We see that monte_carlo_split_box_fast was faster on the 10'000 than the monte_carlo on the 1'000 and it has a lower amount of collisions.
+
 
 ## Acknowledgements
 Our code is built upon Martin Thomas Horsch code handed out in class.

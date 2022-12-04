@@ -38,9 +38,11 @@ If we iterate thru and the number of collisions comes to zero, we break the loop
 This works the same as the Monte_carlo directory, but here we have implemented a way to split the box into smaller boxes. The  Monte_carlo code works, but it is slow, so we needed to find a way to make it more efficient. We implemented a uniform grid partition. When we implemented this we noticed that the code was faster but had a higher amount of collisions than the Monte_carlo. This is because if two spheres are in the same two boxes it will count as two collisions instead of one. So to solve this we added a list to each sphere with the id of which paricle it has collided with. So each time we calculate collisions now we go thru the particle list of previous collisions and check if those particles have collided before. 
 
 Instead of improving the code, this made it even slower.
------
+
+
+
 implement pictures
-------
+
 
 
 ### Monte_carlo_split_box_fast
@@ -51,6 +53,8 @@ This turns out to be the fastest.
 
 ### sphere-benchmark
 Used to create a .dat file containing the box size and the number of spheres as well as their size and coordinates.
+
+
 
 ## Results
 

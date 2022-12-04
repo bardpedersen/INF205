@@ -1,0 +1,9 @@
+This is an explanation behind this implementation of collision checking. 
+
+This method is created to be a better version of collision checking than how it was originally implemented in the given code.
+
+In theory it is supposed to be faster by checking the spheres fewer times. This is achieved by sorting all the spheres by the x-axis from low to high,
+then seeing if there are any overlaps in the x-axis and marking them if it is a overlap. Then go over the now shorter list(hopefully) and check if it
+is an actual collision.
+
+There will be some reused code here both the initial sphere positions and the check collision from the other examples.

@@ -100,7 +100,7 @@ A 2010 MacBook pro, with 10GB memory.
 As we can see the monte_carlo_split_box_fast is the best-performing one. It does have more collisions when done, but with the time it saves, it can run thru more iterations and then with the same amount of time it will have a lot fewer collisions. 
 We can use the 1'000 and 10'000 iterations as an example. We see that monte_carlo_split_box_fast was faster on the 10'000 than the monte_carlo on the 1'000 and it has a lower amount of collisions.
 
-<embed src="https://github.com/ErikTrier/INF205/blob/bard/plotting/timeplot.pdf" type="application/pdf">
+[embed]https://github.com/ErikTrier/INF205/blob/bard/plotting/timeplot.pdf[/embed]
 
 ## Acknowledgements
 Our code is built upon Martin Thomas Horsch code handed out in class.

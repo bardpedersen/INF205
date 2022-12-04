@@ -16,6 +16,10 @@ int main(int argc, char** argv)
     std::multimap<double, int, std::greater<int>> &compon = b.get_components();
     std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
 
+    // New vector for spheres
+    std::vector<Sphere> spheres_together;
+
+    // Iterate through all spheres and append them to the new vector 
     
     
 

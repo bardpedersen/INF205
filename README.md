@@ -57,19 +57,38 @@ Used to create a .dat file containing the box size and the number of spheres as 
 ## Results
 
 This is our results for the different scripts:
+All the data is gathered with the same pc, 
+A 2010 MacBook pro, with 10GB memory.
 
-With 10'000 spheres and 100 iterations
-Collisions started with: 7522
+10'000 spheres, Collisions started with: 7522
+
+10 iterations
+
+|File        |Time           | Collisions after  |
+|:---:|:-------------:|:-------------:|
+|Monte_carlo| --   | --- |
+|Monte_carlo_split_box| ----     | ---  | 
+|Monte_carlo_split_box_fast| 0m 7,216s   | 7520 | 
+
+
+100 iterations
 
 |File        |Time           | Collisions after  |
 |:---:|:-------------:|:-------------:|
 |Monte_carlo| 1m 44,252s    | 7393 |
 |Monte_carlo_split_box| 13m 55,505s     | 7393  | 
-|Monte_carlo_split_box_fast| 0m 10,990s   | 7411 | 
+|Monte_carlo_split_box_fast| 0m 10,990s   | 7411 |
 
 
-With 10'000 spheres and 10'000 itterations
-Collisions started with: 7522
+1'000 iterations
+
+|File        |Time           | Collisions after  |
+|:---:|:-------------:|:-------------:|
+|Monte_carlo| ---   | --- |
+|Monte_carlo_split_box| ---     | ---  | 
+|Monte_carlo_split_box_fast|--  | -- | 
+
+10'000 itterations
 
 |File        |Time           | Collisions after  |
 |:---:|:-------------:|:-------------:|

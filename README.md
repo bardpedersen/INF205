@@ -93,7 +93,7 @@ A 2010 MacBook pro, with 10GB memory.
 |File        |Time           | Collisions after  |
 |:---:|:-------------:|:-------------:|
 |Monte_carlo| 158m 20,761s    | 6112 |
-|Monte_carlo_split_box| ---    | ---  | 
+|Monte_carlo_split_box| 1278m 26,888s    | 6112  | 
 |Monte_carlo_split_box_fast| 8m 14,070s  | 6391 |
 
 

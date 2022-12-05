@@ -48,7 +48,7 @@ This is the same principle as the Monte_carlo_split_box. We split the box into s
 
 This turns out to be the fastest.
 
-### MPI (Message Passing Interface)
+### MPI_Monte_Carlo
 
 MPI was used in this project as a possible improvant of our performance. The goal was to find an overall lower number of collisions. It was used with our basic version of our solution (Monte_Carlo).  
 
@@ -69,7 +69,7 @@ To run this version of the project.
 You can change the number of process by modifying the number after -n. 
 
 
-## Example output:
+#### Example output:
 (sphere nb: id of the sphere moved   i: iteration number (from 1 to 100 here)    Rank nb: id of the process    Nb collisions: number of collisions calculated)<br />
 
 sphere nb: 34   i: 25    Rank nb : 1     Nb collisions : 3776<br />

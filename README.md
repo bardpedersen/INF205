@@ -13,10 +13,11 @@ iterations, their might be a process with a lower number of collisions then on t
 
 To run this version of the project. 
 
- Markup : 1. Make sure to have MPI setup on your computer
-          2. Open Terminal
-          3. Go in the x64/Debug folder
-          4. Run the following command: mpiexec -n 4 MPI_Monte_Carlo.exe example-data.dat
+
+1. Make sure to have MPI setup on your computer
+2. Open Terminal
+3. Go in the x64/Debug folder
+4. Run the following command: mpiexec -n 4 MPI_Monte_Carlo.exe example-data.dat
 
 You can change the number of process by modifying the number after -n. 
 

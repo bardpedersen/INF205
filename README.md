@@ -73,11 +73,16 @@ You can change the number of process by modifying the number after -n.
 ### sphere-benchmark
 Used to create a .dat file containing the box size and the number of spheres as well as their size and coordinates. 
 
+### Plot
+This is used to create two plots for showing the time differences in the different directories
+
 
 
 ## Results
 
 ### Execution time
+
+These results are created before we implemented the new function that stacks spheres. With the new function, they all hit zero collisions.
 
 This is our results for the different scripts:
 All the data is gathered with the same pc, 

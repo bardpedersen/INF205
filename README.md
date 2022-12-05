@@ -88,7 +88,12 @@ This is our results for the different scripts:
 All the data is gathered with the same pc, 
 A 2010 MacBook pro, with 10GB memory.
 
-10'000 spheres, Collisions started with: 7522
+Results was made with 10'000 spheres and these parameters: 
+'''
+   double pfract = 1.0/10.0;
+   double max_ratio = 3.0/3.0;
+      '''
+Collisions started with: 7522
 
 10 iterations
 
@@ -143,6 +148,13 @@ sphere nb: 33   i: 51    Rank nb : 2     Nb collisions : 3688<br />
 sphere nb: 36   i: 52    Rank nb : 2     Nb collisions : 3464<br />
 sphere nb: 39   i: 53    Rank nb : 2     Nb collisions : 3249<br />
 ...<br />
+
+## Further work
+In the function move_sphere the code repeats itself two times, this can be moved into another function. 
+
+With the MPI after each iteration, we can keep the best coordinates.
+
+Another idea we can try is to place the large ones first, then the smaller ones, and then the smallest. Like if you have a barrel, then you fill it with a large stone, then a small stone, then gravel, then finner gravel, then sand, then silt, then clay.
 
 ## Acknowledgements
 Our code is built upon Martin Thomas Horsch's code that he shared with the class. The folder "sphere-benchmark" is in its original state from Martin Thomas Horsch. The folder "Monte_carlo" is heavily based on Martin Thomas Horsch's code but we added the function to move the spheres around.The folders: "Monte_carlo_split_box" and "Monte_carlo_split_box_fast" are based on "Monte_carlo" folder which contains Martin Thomas Horsch's code.

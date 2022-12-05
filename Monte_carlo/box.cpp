@@ -72,6 +72,7 @@ long Box::count_collisions()
    return overlaps;
 }
 
+//Move the spheres systematic in box
 void Box::start_phase(){
    double size_box_x = this->extension[0];
    double size_box_y = this->extension[1];
@@ -81,12 +82,12 @@ void Box::start_phase(){
    double coordz = 0;
    double prev_size;
    double prev_size_z;
-
+   int q = 0;
    for(auto A = this->components.begin(); A != this->components.end(); A++)
       for(auto i = this->particles[A->second].begin(); i != this->particles[A->second].end(); i++){
          double size = (i->get_size() * 0.5);
 
-         if(i->get_particle_id() == 0){
+         if(q == 0){
             coordy = size;
             coordz = size;
             prev_size = size;
@@ -113,11 +114,14 @@ void Box::start_phase(){
          i->set_coordinate(1, coordy);
          i->set_coordinate(2, coordz);
 
+         std::cout << "Partic id " << i->get_particle_id() << " Coords: " << i->get_coordinate(0)<< i->get_coordinate(1)<< i->get_coordinate(2)<<"\n";
+         
          coordx += size;
 
          if(coordz > size_box_z){
             break;
          }
+         q += 1;
    }
 }
 

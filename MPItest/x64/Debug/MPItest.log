@@ -1,0 +1,6 @@
+﻿  MPItest.cpp
+C:\Users\havyt\source\repos\MPItest\box.h(19,21): warning C4267: 'return' : conversion de 'size_t' en 'int', perte possible de données
+C:\Users\havyt\source\repos\MPItest\MPItest.cpp(51,22): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
+C:\Users\havyt\source\repos\MPItest\MPItest.cpp(72,16): warning C4244: 'initialisation' : conversion de 'float' en 'int', perte possible de données
+C:\Users\havyt\source\repos\MPItest\MPItest.cpp(89,68): warning C4267: 'initialisation' : conversion de 'size_t' en 'int', perte possible de données
+  MPItest.vcxproj -> C:\Users\havyt\source\repos\MPItest\x64\Debug\MPItest.exe

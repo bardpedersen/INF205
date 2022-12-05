@@ -89,10 +89,10 @@ All the data is gathered with the same pc,
 A 2010 MacBook pro, with 10GB memory.
 
 Results was made with 10'000 spheres and these parameters: 
-'''
+```
    double pfract = 1.0/10.0;
    double max_ratio = 3.0/3.0;
-      '''
+```
 Collisions started with: 7522
 
 10 iterations

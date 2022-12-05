@@ -82,8 +82,7 @@ This is used to create two plots for showing the time differences in the differe
 
 ### Execution time
 
-These results are created before we implemented the new function that stacks spheres. With the new function, they all hit zero collisions.
-
+These results were created before we implemented the new function that stacks spheres. With the new function, they all hit zero collisions.
 This is our results for the different scripts:
 All the data is gathered with the same pc, 
 A 2010 MacBook pro, with 10GB memory.

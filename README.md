@@ -23,7 +23,7 @@ You can change the number of process by modifying the number after -n.
 
 
 ### Example output:
-(sphere nb: id of the sphere moved   i: iteration number (from 1 to 100 in this case)    Rank nb: id of the process    Nb collisions: number of collisions calculated)
+(sphere nb: id of the sphere moved   i: iteration number (from 1 to 100 in this case)    Rank nb: id of the process    Nb collisions: number of collisions calculated)<br />
 
 sphere nb: 34   i: 25    Rank nb : 1     Nb collisions : 3776
 sphere nb: 37   i: 26    Rank nb : 1     Nb collisions : 3552

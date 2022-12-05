@@ -77,7 +77,7 @@ Used to create a .dat file containing the box size and the number of spheres as 
 
 ## Results
 
-### Timing of folders
+### Execution time
 
 This is our results for the different scripts:
 All the data is gathered with the same pc, 

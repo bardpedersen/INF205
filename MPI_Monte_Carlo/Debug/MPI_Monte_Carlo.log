@@ -1,0 +1,8 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(1087,5): error MSB6006: Arrêt de "link.exe" avec le code 1120.
+MPItest.obj : error LNK2019: symbole externe non résolu _MPI_Comm_size@8 référencé dans la fonction _main
+MPItest.obj : error LNK2019: symbole externe non résolu _MPI_Comm_rank@8 référencé dans la fonction _main
+MPItest.obj : error LNK2019: symbole externe non résolu _MPI_Get_processor_name@8 référencé dans la fonction _main
+MPItest.obj : error LNK2019: symbole externe non résolu _MPI_Init@8 référencé dans la fonction _main
+MPItest.obj : error LNK2019: symbole externe non résolu _MPI_Finalize@0 référencé dans la fonction _main
+C:\Program Files (x86)\Microsoft SDKs\MPI\Lib\x64\\msmpi.lib : warning LNK4272: type d'ordinateur bibliothèque 'x64' en conflit avec le type d'ordinateur cible 'x86'
+C:\Users\havyt\source\repos\MPItest\Debug\MPItest.exe : fatal error LNK1120: 5 externes non résolus

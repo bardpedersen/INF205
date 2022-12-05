@@ -19,7 +19,7 @@ To run this version of the project.
 You can change the number of process by modifying the number after -n. 
 
 
-### Example output:
+## Example output:
 (sphere nb: id of the sphere moved   i: iteration number (from 1 to 100 here)    Rank nb: id of the process    Nb collisions: number of collisions calculated)<br />
 
 sphere nb: 34   i: 25    Rank nb : 1     Nb collisions : 3776<br />

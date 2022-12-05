@@ -8,7 +8,7 @@
 #include "sphere.h"
 
 class Box
-{
+{  
 public:
    void in(std::istream* source);  // read from *source
    

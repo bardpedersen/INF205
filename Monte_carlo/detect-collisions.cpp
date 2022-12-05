@@ -35,9 +35,9 @@ int main(int argc, char** argv)
    int collisions_to_funct = collisons_stacked;
 
    double coord[size][3];
-   int itteration = 0;
+   int iteration = 0;
    for(int i = 0; i < 10; i++){
-      itteration++;
+      iteration++;
       int number_of_collisions = b.move_sphere(collisions_to_funct); // Need to fix
 
       if(number_of_collisions < lowest_number_of_collisions){
@@ -76,5 +76,5 @@ int main(int argc, char** argv)
 
    std::cout << "\n===\nCollisions before: " << collosions_start << "\n";
    std::cout << "\n===\nCollisions after: " << lowest_number_of_collisions << "\n";
-   std::cout << "===\nNumber of itterations: " << itteration << "\n";
+   std::cout << "===\nNumber of itterations: " << iteration << "\n";
 }

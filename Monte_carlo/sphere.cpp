@@ -24,7 +24,7 @@ void Sphere::set_coordinate(int axis, double in_coord)
    this->coords[axis] = in_coord;
 }
 
-// is there a collision between this sphere and another?
+// Is there a collision between this sphere and another?
 //
 // by a collision here we mean a genuine overlap between spheres:
 // if two spheres barely touch each other (square_distance == sum_of_radii*sum_of_radii) it does not count as a collision;

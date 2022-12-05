@@ -127,7 +127,7 @@ void Box::start_phase(){
 
 int Box::move_sphere(int number_of_coll){
 
-   int collision_before = number_of_coll;
+   int collisions_before = number_of_coll;
 
    //Choose random sphere
    int random_sphere_from_list = rand() % this->N; 
@@ -137,14 +137,14 @@ int Box::move_sphere(int number_of_coll){
 
    for(auto Comp = this->components.begin(); Comp != this->components.end(); Comp++){
       //comp list of the different components 
-      for(auto partic = this->particles[Comp->second].begin(); partic != this->particles[Comp->second].end(); partic++){
+      for(auto particle = this->particles[Comp->second].begin(); particle != this->particles[Comp->second].end(); particle++){
       //list of particles in that componenet
-         if(random_sphere_from_list == partic->get_particle_id()){
+         if(random_sphere_from_list == particle->get_particle_id()){
             double temp_coord[3];
 
             for(int d = 0; d < 3; d++)
             {
-               temp_coord[d] = partic->get_coordinate(d);
+               temp_coord[d] = particle->get_coordinate(d);
             }
 
             double new_coords[3];
@@ -155,27 +155,27 @@ int Box::move_sphere(int number_of_coll){
                while((new_coords[d]) < 0.0) new_coords[d] += new_coords[d] ; //if pbc is true / increese with this->extension[d], got a case where box is 4**3 and sphere size is 2 and start in positsion (1,1,1) 
                while((new_coords[d]) > this->extension[d]) new_coords[d] -= new_coords[d]; 
 
-               partic->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
+               particle->set_coordinate(d, new_coords[d]); //need to move within perodic boundry.
                }
 
             int collisions_after = count_collisions();
             //std::cout << "\n";
-            //std::cout << collision_before << " "<< collisions_after <<"\n";
+            //std::cout << collisions_before << " "<< collisions_after <<"\n";
             //std::cout << "\n";
-            double probability_move  = exp(collision_before - collisions_after); // Number of collisions
+            double probability_move  = exp(collisions_before - collisions_after); // Number of collisions
             double random = (rand() % 100 + 1);
             //std::cout << probability_move << ">" << random/100;
             if(probability_move < random/100) {
                for(int d = 0; d < 3; d++){
-                  partic->set_coordinate(d, temp_coord[d]);
+                  particle->set_coordinate(d, temp_coord[d]);
 
                }
             }
             else{
-               collision_before = collisions_after;
+               collisions_before = collisions_after;
             }
          }
       }
    }
-   return collision_before;
+   return collisions_before;
 }

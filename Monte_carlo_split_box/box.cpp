@@ -63,10 +63,10 @@ long Box::count_collisions()
    int i = 0;
    for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
       if(Small_box->get_particles().size() > 1){
-         for(auto partic_1 = Small_box->get_particles().begin();  std::next(partic_1) != Small_box->get_particles().end(); partic_1++){
-            for(auto partic_2 = std::next(partic_1); partic_2 != Small_box->get_particles().end(); partic_2++){
-               Sphere * par1 = *partic_1;
-               Sphere * par2 = *partic_2;
+         for(auto particle_1 = Small_box->get_particles().begin();  std::next(particle_1) != Small_box->get_particles().end(); particle_1++){
+            for(auto particle_2 = std::next(particle_1); particle_2 != Small_box->get_particles().end(); particle_2++){
+               Sphere * par1 = *particle_1;
+               Sphere * par2 = *particle_2;
                overlaps += par1->check_collision(&(*par2), this->extension);
             }
          }
@@ -75,8 +75,8 @@ long Box::count_collisions()
    
    for(auto Small_box = this->boxes.begin(); Small_box != this->boxes.end(); Small_box++){
       if(Small_box->get_particles().size() > 1){
-         for(auto partic_1 = Small_box->get_particles().begin(); partic_1 != Small_box->get_particles().end(); partic_1++){
-            Sphere * par1 = *partic_1;
+         for(auto particle_1 = Small_box->get_particles().begin(); particle_1 != Small_box->get_particles().end(); particle_1++){
+            Sphere * par1 = *particle_1;
             par1->erase_particle_collided_with();
          }
       }

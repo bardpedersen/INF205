@@ -25,7 +25,7 @@ A great video we used to understand theese concept better can be found [here](ht
 
 
 
-## Directory
+## Directories
 
 ### Monte_carlo
 This is the basic code. We start by calculating the number of collisions, and then we pick one random sphere and move it to a random location (Monte Carlo algorithm). We then check the number of collisions again and use a formula

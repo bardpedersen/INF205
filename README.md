@@ -5,7 +5,7 @@ This is our assignment in the course [INF205](https://www.nmbu.no/emne/INF205?st
 [Norwegian university of life sciences (NMBU)](https://www.nmbu.no). The Topic we chose is [Sphere overlap](https://home.bawue.de/~horsch/teaching/inf205/project/sphere-overlap.html). 
 
 The problem is as follows. Given a box with a set size and n number of spheres with a diameter and coordinates. Calculate the number of collisions and move the spheres to reduce the number of collisions.
-
+jj
 The code should be efficient and reduce the number of collisions to zero if possible, if not then to the lowest amount of collisions.
 
 ## Algorithm

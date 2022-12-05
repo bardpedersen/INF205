@@ -16,10 +16,7 @@ using namespace std;
 int main(int argc, char** argv) {
 
     assert(argc > 0);
-    //std::cout << argc;
-    //char filename = std::atoi(argv[1]);
-    //cout << argv[1];
-    // 
+
     //Unique rank is assigned to each process in a communicator
     int rank;
 
@@ -46,9 +43,8 @@ int main(int argc, char** argv) {
     //Implementation specific (may be gethostname, uname, or sysinfo)
     MPI_Get_processor_name(name, &length);
 
-    int N_ = 100;
-    float  partition = N_ / size;
-    //cout << partition;
+    int N_ = 100; //Total number of iterations
+    float  partition = N_ / size; //Number of iterations per process
 
     Box b;
     std::ifstream file_in{ argv[1] };
@@ -67,19 +63,13 @@ int main(int argc, char** argv) {
     double coord[10000][3];
     int itteration = 0;
 
-    for (int i = rank * partition; i <= rank * partition + partition; i++)
+    for (int i = rank * partition; i <= rank * partition + partition; i++) //make same number of iterations in each loop
     {
-        //if (i % size != rank) continue;   
-        //cout << rank << "       " << i<<"\n";
         itteration++;
 
         int number_of_collisions = b.move_sphere(collisions_to_funct,i);
 
-        //MPI_Bcast(&lowest_number_of_collisions, 1, MPI_INT, 0, MPI_COMM_WORLD);
-
         if (number_of_collisions < lowest_number_of_collisions) {
-
-            //MPI_Bcast(&number_of_collisions, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
             lowest_number_of_collisions = number_of_collisions;
             for (auto comp = compon.begin(); comp != compon.end(); comp++) {
@@ -102,18 +92,8 @@ int main(int argc, char** argv) {
 
     }
 
-    //Terminate MPI execution environment
     MPI_Finalize();
-    //int process_Rank, size_Of_Cluster;
 
-    //MPI_Init(&argc, &argv);
-    //MPI_Comm_size(MPI_COMM_WORLD, &size_Of_Cluster);
-    //MPI_Comm_rank(MPI_COMM_WORLD, &process_Rank);
-
-    //printf("Hello World from process %d of %d\n", process_Rank, size_Of_Cluster);
-
-    //MPI_Finalize();
-    //return 0;
 }
 
 

@@ -58,7 +58,6 @@ std::istream& operator>>(std::istream& is, Box& b) {
 long Box::count_collisions()
 {
    long overlaps = 0;
-  // int random_sphere_from_list = rand();
 
    // iterate over pairs of components A and B
    for(auto A = this->components.begin(); A != this->components.end(); A++)
@@ -79,15 +78,6 @@ long Box::count_collisions()
    return overlaps;
 }
 
-//unsigned short lfsr = 0xACE1u;
-//unsigned bit;
-//
-//unsigned int ran1()
-//{
-//    bit = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
-//    return lfsr = (lfsr >> 1) | (bit << 15);
-//}
-
 
 int Box::move_sphere(int number_of_coll,int i){
 
@@ -95,10 +85,10 @@ int Box::move_sphere(int number_of_coll,int i){
 
    //Choose random sphere
    int Ne = this->N+1;
-   srand(i);
+   srand(i); //set new seed at each iteration  
 
    int random_sphere_from_list = rand() % Ne ; 
-   //int random_sphere_from_list = 4;
+
    std::cout << "sphere nb: " << random_sphere_from_list;
    //if random number is 7 we know that it isnt in the first component, so
    //needs to have the size of each component to know wich component to go thru

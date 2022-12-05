@@ -21,7 +21,7 @@ int main(int argc, char** argv)
    long N = std::atol(argv[1]);
    std::cout << "particle number N:\t" << N << "\n";
    
-   double pfract = 1.0/10.0;
+   double pfract = 10.0/10.0;
    if(argc >= 3) pfract = std::atof(argv[2]);
    std::cout << "packing fraction:\t" << pfract << "\n";
    

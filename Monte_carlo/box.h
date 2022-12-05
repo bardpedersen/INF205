@@ -18,6 +18,8 @@ public:
    
    int get_N() const{return this->N;};
 
+   void start_phase();
+
    std::multimap<double, int, std::greater<int>> &get_components() {return this->components;};
    std::vector<std::vector<Sphere>> &get_particles() {return this->particles;};
 

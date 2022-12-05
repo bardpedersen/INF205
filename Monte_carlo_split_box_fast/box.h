@@ -23,6 +23,8 @@ public:
 
    void split_boxes(int number_of_boxes); //Split the box into smaller ones for faster computation
 
+   void start_phase();
+
    long count_collisions_all_spheres();
    
 

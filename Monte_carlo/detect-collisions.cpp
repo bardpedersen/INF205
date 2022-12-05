@@ -28,9 +28,11 @@ int main(int argc, char** argv)
    std::vector<std::vector<Sphere>> &particle = b.get_particles(); 
 
    int collosions_start = b.count_collisions();
-   int lowest_number_of_collisions = collosions_start;
-   int collisions_to_funct = collosions_start;
    const int size = b.get_N();
+   b.start_phase();
+   int collisons_stacked = b.count_collisions();
+   int lowest_number_of_collisions = collisons_stacked;
+   int collisions_to_funct = collisons_stacked;
 
    double coord[size][3];
    int itteration = 0;

@@ -20,9 +20,12 @@ int main(int argc, char** argv)
    std::multimap<double, int, std::greater<int>> &compon = large_box.get_components(); //passes by adress
    std::vector<std::vector<Sphere>> &particle = large_box.get_particles(); 
 
+
    int collosions_start = large_box.count_collisions();
-   int lowest_number_of_collisions = collosions_start;
-   int collisions_to_funct = collosions_start;
+   large_box.start_phase();
+   int collisons_stacked = large_box.count_collisions();
+   int lowest_number_of_collisions = collisons_stacked;
+   int collisions_to_funct = collisons_stacked;
 
    int size = large_box.get_N();
    double coord[size][3];

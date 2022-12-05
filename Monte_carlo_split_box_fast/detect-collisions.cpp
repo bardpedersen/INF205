@@ -21,14 +21,16 @@ int main(int argc, char** argv)
 
    int collions_to_print_Start = b.count_collisions_all_spheres();
    int collosions_start = b.count_collisions();
-   int lowest_number_of_collisions = collosions_start;
-   int collisions_to_funct = collosions_start;
+   b.start_phase();
+   int collisons_stacked = b.count_collisions();
+   int lowest_number_of_collisions = collisons_stacked;
+   int collisions_to_funct = collisons_stacked;
 
    int size = b.get_N();
    double coord[size][3];
    int itteration = 0;
 
-   for(int i = 0; i < 10; i++){ //number of spheres to move
+   for(int i = 0; i < 100'000; i++){ //number of spheres to move
       itteration++;
       int number_of_collisions = b.move_sphere(collisions_to_funct);
 

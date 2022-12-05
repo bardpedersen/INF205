@@ -19,6 +19,8 @@ public:
    
    int get_N() const{return this->N;};
 
+   void start_phase();
+
    double get_extension(int axis) const;
 
    void split_boxes(int number_of_boxes); //Split the box into smaller ones for faster computation

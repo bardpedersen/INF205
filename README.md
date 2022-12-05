@@ -1,15 +1,12 @@
 # MPI (Message Passing Interface)
 
-MPI was used in this project as a possible improvant of our performance. The goal was to find an overall lower number of collisions. It was used with our basic
-version of our solution (Monte_Carlo).  
+MPI was used in this project as a possible improvant of our performance. The goal was to find an overall lower number of collisions. It was used with our basic version of our solution (Monte_Carlo).  
 
 There are 4 processes (modifiable when executing the mpi command) running at the same time. Each of them are performing the same amount of iterations. 
 
 N_ is the total number of iterations (currently set to 100). So, each processes will perform 25 iterations of the program.
 
-The benefit of this version is that each process are choosing different random spheres to move. By the end of the 25 (100 iterations/ 4 processes)
-
-iterations, their might be a process with a lower number of collisions then on the other ones.
+The benefit of this version is that each process are choosing different random spheres to move. By the end of the 25 (100 iterations/ 4 processes) iterations, their might be a process with a lower number of collisions then on the other ones.
 
 To run this version of the project. 
 
@@ -17,7 +14,7 @@ To run this version of the project.
 1. Make sure to have MPI setup on your computer
 2. Open Terminal
 3. Go in the x64/Debug folder
-4. Run the following command: mpiexec -n 4 MPI_Monte_Carlo.exe example-data.dat
+4. Run the following command: **mpiexec -n 4 MPI_Monte_Carlo.exe example-data.dat**
 
 You can change the number of process by modifying the number after -n. 
 
@@ -55,6 +52,6 @@ sphere nb: 29   i: 50    Rank nb : 2     Nb collisions : 3776<br />
 sphere nb: 33   i: 51    Rank nb : 2     Nb collisions : 3688<br />
 sphere nb: 36   i: 52    Rank nb : 2     Nb collisions : 3464<br />
 sphere nb: 39   i: 53    Rank nb : 2     Nb collisions : 3249<br />
-...
-...
-...
+...<br />
+...<br />
+...<br />

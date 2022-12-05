@@ -104,7 +104,9 @@ We can use the 1'000 and 10'000 iterations as an example. We see that monte_carl
 <embed src="https://github.com/ErikTrier/INF205/blob/bard/plotting/timeplot.pdf" type="application/pdf">
 
 ## Acknowledgements
-Our code is built upon Martin Thomas Horsch code handed out in class.
+Our code is built upon Martin Thomas Horsch's code that he shared with the class. The folder "sphere-benchmark" is in its original state from Martin Thomas Horsch. The folder "Monte_carlo" is heavily based on Martin Thomas Horsch's code but we added the function to move the spheres around.
+
+The folders: "Monte_carlo_split_box" and "Monte_carlo_split_box_fast" are based on "Monte_carlo" which contains Martin Thomas Horsch's code.
 
 
 ## License

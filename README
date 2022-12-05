@@ -1,4 +1,4 @@
-## MPI (Message Passing Interface)
+# MPI (Message Passing Interface)
 
 MPI was used in this project as a possible improvant of our performance. The goal was to find an overall lower number of collisions. It was used with our basic
 version of our solution (Monte_Carlo).  

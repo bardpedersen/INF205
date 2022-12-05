@@ -22,7 +22,7 @@ The sweep and Prune Algorithm is when we go along an axis, for example, the x-ax
 
 A great video we used to understand theese concept better can be found [here](https://www.youtube.com/watch?v=eED4bSkYCB8).
 
-
+We implemented a function that first stack the spheres systematically int the box. this way if there are enough space it will stack them and hit zero collisions fast.
 
 
 ## Directories

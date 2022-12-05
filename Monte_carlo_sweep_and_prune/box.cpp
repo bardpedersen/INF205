@@ -75,6 +75,29 @@ long Box::count_collisions_all_spheres()
    return overlaps;
 }
 
+// Create new vector based on x-coord
+
+std::vector<std::vector<Sphere>> new_vector(){
+
+   std::vector<Sphere> newest_vector;
+
+   // Iterate over all Spheres and push them into a vector
+
+    for(auto A = this->components.begin(); A != this->components.end(); A++)
+      for(auto B = A; B != this->components.end(); B++)
+      {
+         if(A->second == B->second)  // same component: iterate over pairs of particles i and j
+            for(auto i = this->particles[A->second].begin(); std::next(i) != this->particles[A->second].end(); i++)
+            
+               newest_vector.push_back(i)
+
+         else  // different components: iterate over pairs of particles i and j
+            for(auto i = this->particles[A->second].begin(); i != this->particles[A->second].end(); i++)
+               for(auto j = this->particles[B->second].begin(); j != this->particles[B->second].end(); j++)
+                  
+      }
+
+}
 
 // count the number of collisions between pairs of spheres
 long Box::count_collisions()

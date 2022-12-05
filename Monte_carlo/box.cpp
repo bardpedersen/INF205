@@ -72,7 +72,6 @@ long Box::count_collisions()
    return overlaps;
 }
 
-
 int Box::move_sphere(int number_of_coll){
 
    int collision_before = number_of_coll;

@@ -15,6 +15,8 @@ public:
    
    long count_collisions();  //count number of collisions
 
+   std::vector<std::vector<Sphere>> new_vector(); // make new vector that sorts based on x coord
+
    int move_sphere(int number_of_coll); // move spheres
    
    int get_N() const{return this->N;};

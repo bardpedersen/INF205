@@ -79,7 +79,7 @@ long Box::count_collisions_all_spheres()
 
 std::vector<std::vector<Sphere>> new_vector(){
 
-   std::vector<Sphere> newest_vector;
+    std::vector<Sphere> newest_vector;
 
    // Iterate over all Spheres and push them into a vector
 
